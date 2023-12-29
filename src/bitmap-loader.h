@@ -9,7 +9,14 @@ class BitmapLoader
 
     public:
         void loadMenuBackgrounds();
+        void loadBackground();
+        void loadGameMenu();
         ALLEGRO_BITMAP* menuBackgrounds[3];
+        ALLEGRO_BITMAP* background;
+        ALLEGRO_BITMAP* gameMenu;
+        ALLEGRO_BITMAP* bunkerButton[2];
+        ALLEGRO_BITMAP* towerButton[2];
+        ALLEGRO_BITMAP* siegeButton[2];
 
     private:
         void loadSprites(int numberOfSprites, std::string spriteName, ALLEGRO_BITMAP* sprites[]);

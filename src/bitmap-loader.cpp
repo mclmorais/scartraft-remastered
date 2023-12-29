@@ -17,3 +17,30 @@ void BitmapLoader::loadMenuBackgrounds()
     }
 
 }
+
+void BitmapLoader::loadBackground()
+{
+    background = al_load_bitmap("../assets/backgrounds/background-terran.tga");
+    if(background == NULL) {
+        std::cout << "Failed to load background" << std::endl;
+        exit(6);
+    }
+}
+
+void BitmapLoader::loadGameMenu()
+{
+    gameMenu = al_load_bitmap("../assets/interface/game-menu/game-menu-1.tga");
+    if(gameMenu == NULL) {
+        std::cout << "Failed to load game menu" << std::endl;
+        exit(6);
+    }
+
+    bunkerButton[0] = al_load_bitmap("../assets/interface/game-menu/button-bunker.tga");
+    bunkerButton[1] = al_load_bitmap("../assets/interface/game-menu/button-bunker-highlight.tga");
+    towerButton[0] = al_load_bitmap("../assets/interface/game-menu/button-tower.tga");
+    towerButton[1] = al_load_bitmap("../assets/interface/game-menu/button-tower-highlight.tga");
+    siegeButton[0] = al_load_bitmap("../assets/interface/game-menu/button-siege.tga");
+    siegeButton[1] = al_load_bitmap("../assets/interface/game-menu/button-siege-highlight.tga");
+
+
+}

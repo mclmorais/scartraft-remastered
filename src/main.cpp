@@ -6,8 +6,16 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_primitives.h>
 #include <stdbool.h>
+#include <math.h>
 #include "bitmap-loader.h"
 #include "plotter.h"
+#include <iostream>
+
+#define REFRESH_RATE 60
+#define LEFTBUTTON 1
+
+void mainMenu(Plotter* plotter);
+void game(Plotter* plotter);
 
 int main()
 {
@@ -24,11 +32,120 @@ int main()
 
 	BitmapLoader* bitmapLoader = new BitmapLoader();
 	bitmapLoader->loadMenuBackgrounds();
+	bitmapLoader->loadBackground(); // TODO: mudar para quando o jogo de fato iniciar
+	bitmapLoader->loadGameMenu();
 
 	Plotter* plotter = new Plotter(bitmapLoader);
 
 	plotter->createDisplay();
-	plotter->plotMainMenu();
 
-	while(true);
+	mainMenu(plotter);
+}
+
+void mainMenu(Plotter* plotter)
+{
+
+	srand(time(NULL));
+
+	int flag = 0;
+
+	ALLEGRO_MOUSE_STATE		mousestate;
+
+	double fixedDownTime = 1.0f / REFRESH_RATE;
+	double oldTime = al_current_time();
+	double gameTime = al_current_time();
+	while (true)
+	{
+		double downTime = al_current_time() - oldTime;
+		al_rest(fixedDownTime - downTime);
+		downTime = al_current_time() - oldTime;
+		oldTime = al_current_time();
+
+		if (oldTime - gameTime > downTime)
+		{
+			downTime += fixedDownTime * floor((oldTime - gameTime) / fixedDownTime);
+		}
+
+		double start_time = al_current_time();
+		while (oldTime - gameTime >= 0)
+		{
+			gameTime += fixedDownTime;
+			al_get_mouse_state(&mousestate);
+
+			if (mousestate.buttons == LEFTBUTTON)
+			{
+				if (mousestate.x >= 554 && mousestate.x <= 743 && mousestate.y >= 332 && mousestate.y <= 393)
+				{
+					game(plotter);
+				}
+
+				if (mousestate.x >= 590 && mousestate.x <= 730 && mousestate.y >= 470 && mousestate.y <= 510)
+				{
+					// _CrtDumpMemoryLeaks();
+					exit(1);
+
+				}
+
+			}
+			else if (mousestate.buttons == 0)
+			{
+				if (mousestate.x >= 554 && mousestate.x <= 743 && mousestate.y >= 332 && mousestate.y <= 393)
+					flag = 1;
+
+				else if (mousestate.x >= 590 && mousestate.x <= 730 && mousestate.y >= 470 && mousestate.y <= 510)
+					flag = 2;
+				else
+					flag = 0;
+			}
+
+
+			if (al_current_time() - start_time > fixedDownTime)
+				break;
+
+			plotter->plotMainMenu(flag);
+			al_wait_for_vsync();
+			al_flip_display();
+		}
+
+	}
+}
+
+void game(Plotter* plotter)
+{
+
+	ALLEGRO_MOUSE_STATE mouseState;
+	double fixedDownTime = 1.0f / REFRESH_RATE;
+	double oldTime = al_current_time();
+	double gameTime = al_current_time();
+
+	while (true)
+	{
+		double downTime = al_current_time() - oldTime;
+		al_rest(fixedDownTime - downTime);
+		downTime = al_current_time() - oldTime;
+		oldTime = al_current_time();
+
+		if (oldTime - gameTime > downTime)
+		{
+			downTime += fixedDownTime * floor((oldTime - gameTime) / fixedDownTime);
+		}
+
+		double start_time = al_current_time();
+		while (oldTime - gameTime >= 0)
+		{
+			gameTime += fixedDownTime;
+			al_get_mouse_state(&mouseState);
+
+
+
+			if (al_current_time() - start_time > fixedDownTime)
+				break;
+
+			plotter->plotBackground();
+			plotter->plotGameMenu(mouseState);
+			al_wait_for_vsync();
+			al_flip_display();
+		}
+
+	}
 }
