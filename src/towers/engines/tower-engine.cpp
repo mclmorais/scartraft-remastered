@@ -6,6 +6,7 @@ TowerEngine::TowerEngine()
 
     towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50};
     towerSettings[TowerType::Turret] = {TowerType::Turret, 80};
+    towerSettings[TowerType::SiegeTank] = {TowerType::SiegeTank, 120};
 
     towerSlots.push_back(new TowerSlot(25, 75));
     towerSlots.push_back(new TowerSlot(25, 275));
@@ -57,14 +58,7 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
 
 bool TowerEngine::hasResourcesForPlacement(PlayerEconomy* playerEconomy)
 {
-    switch(currentSelection) {
-        case TowerType::None:
-            return false;
-        case TowerType::Bunker:
-            return playerEconomy->minerals >= towerSettings[currentSelection].cost;
-        default:
-            return false;
-    }
+    return playerEconomy->minerals >= towerSettings[currentSelection].cost;
 }
 
 int TowerEngine::selectLocation(int posX, int posY)
