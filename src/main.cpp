@@ -17,8 +17,20 @@
 #define REFRESH_RATE 60
 #define LEFTBUTTON 1
 
+#define BUTTON_Y_SIZE 60
+#define TOWER_BUTTON_X_START       715
+#define TOWER_BUTTON_X_END         TOWER_BUTTON_X_START + 60
+#define BUNKER_BUTTON_Y_START      235
+#define BUNKER_BUTTON_Y_END        BUNKER_BUTTON_Y_START + BUTTON_Y_SIZE
+#define TOWER_BUTTON_Y_START       295
+#define TOWER_BUTTON_Y_END         TOWER_BUTTON_Y_START + BUTTON_Y_SIZE
+#define SIEGE_BUTTON_Y_START       365
+#define SIEGE_BUTTON_Y_END         SIEGE_BUTTON_Y_START + BUTTON_Y_SIZE
+// TODO: retirar defines duplicados
+
 void mainMenu(Plotter* plotter);
 void game(Plotter* plotter);
+void setSelection(ALLEGRO_MOUSE_STATE mouseState, TowerEngine* towerEngine);
 
 int main()
 {
@@ -157,18 +169,53 @@ void game(Plotter* plotter)
 			gameTime += fixedDownTime;
 			al_get_mouse_state(&mouseState);
 			
-			towerEngine->placeTower(mouseState.x, mouseState.y, playerEconomy);
+			setSelection(mouseState, towerEngine);
+
+			// TODO: pensar se verificação de botão deveria ficar aqui mesmo
+			if (mouseState.buttons == LEFTBUTTON)
+				towerEngine->placeTower(mouseState.x, mouseState.y, playerEconomy);
 
 
 			if (al_current_time() - start_time > fixedDownTime)
 				break;
 
 			plotter->plotBackground();
-			plotter->plotGameMenu(mouseState);
+			plotter->plotGameMenu(towerEngine->currentSelection);
 			towerPlotter->plot();
 			al_wait_for_vsync();
 			al_flip_display();
 		}
 
 	}
+}
+
+
+// TODO: passar para uma classe que faz o handling de status de botões
+void setSelection(ALLEGRO_MOUSE_STATE mouseState, TowerEngine* towerEngine)
+{
+	if(mouseState.buttons != LEFTBUTTON)
+		return;
+
+	if(mouseState.x < TOWER_BUTTON_X_START || mouseState.x > TOWER_BUTTON_X_END)
+		return;
+
+    if(mouseState.y > BUNKER_BUTTON_Y_START && mouseState.y < BUNKER_BUTTON_Y_END)
+	{
+		towerEngine->currentSelection != TowerType::Bunker && std::cout << "Bunker selected" << std::endl;
+        towerEngine->currentSelection =  TowerType::Bunker;
+	}
+    
+    if(mouseState.y > TOWER_BUTTON_Y_START && mouseState.y < TOWER_BUTTON_Y_END)
+	{
+		towerEngine->currentSelection != TowerType::Turret && std::cout << "Turret selected" << std::endl;
+        towerEngine->currentSelection =  TowerType::Turret;
+	}
+    
+    if(mouseState.y > SIEGE_BUTTON_Y_START && mouseState.y < SIEGE_BUTTON_Y_END)
+	{
+		towerEngine->currentSelection != TowerType::SiegeTank && std::cout << "Siege Tank selected" << std::endl;
+        towerEngine->currentSelection =  TowerType::SiegeTank;
+	}
+
+    
 }

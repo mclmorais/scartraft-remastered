@@ -12,7 +12,7 @@ class Plotter
         void createDisplay();
         void plotMainMenu(int variation);
         void plotBackground();
-        void plotGameMenu(ALLEGRO_MOUSE_STATE mouseState);
+        void plotGameMenu(TowerType::TowerType selectedTower);
         TowerType::TowerType checkHighlight(ALLEGRO_MOUSE_STATE mouseState);
     	ALLEGRO_DISPLAY *display;
 
