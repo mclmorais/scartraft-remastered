@@ -2,7 +2,7 @@
 
 TowerEngine::TowerEngine()
 {
-    currentSelection = TowerType::Bunker;
+    currentSelection = TowerType::None;
 
     towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50};
     towerSettings[TowerType::Turret] = {TowerType::Turret, 80};
@@ -24,7 +24,6 @@ TowerEngine::TowerEngine()
     towerSlots.push_back(new TowerSlot(575, 275));
     towerSlots.push_back(new TowerSlot(575, 425));
 }
-
 
 bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
 {
@@ -49,6 +48,8 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
     slot->tower->type = currentSelection;
 
     playerEconomy->minerals -= towerSettings[currentSelection].cost;
+
+    currentSelection = TowerType::None;
 
     std::cout << "Tower placed (pos. " << location << ") - " << playerEconomy->minerals << " minerals left" << std::endl;
     return true;
