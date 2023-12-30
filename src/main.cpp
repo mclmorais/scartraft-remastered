@@ -116,12 +116,22 @@ void mainMenu(Plotter* plotter)
 void game(Plotter* plotter)
 {
 
+	std::cout << "TowerLoader init:";
 	TowerLoader* towerLoader = new TowerLoader();
 	towerLoader->loadSprites();
+	std::cout << " ok" << std::endl;
 
+	std::cout << "TowerEngine init:";
 	TowerEngine* towerEngine = new TowerEngine();
-	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
+	std::cout << " ok" << std::endl;
 
+	std::cout << "TowerPlotter init:";
+	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
+	std::cout << " ok" << std::endl;
+
+	PlayerEconomy* playerEconomy = new PlayerEconomy();
+	playerEconomy->gas = 500;
+	playerEconomy->minerals = 500;
 	
 
 	ALLEGRO_MOUSE_STATE mouseState;
@@ -146,7 +156,8 @@ void game(Plotter* plotter)
 		{
 			gameTime += fixedDownTime;
 			al_get_mouse_state(&mouseState);
-
+			
+			towerEngine->placeTower(mouseState.x, mouseState.y, playerEconomy);
 
 
 			if (al_current_time() - start_time > fixedDownTime)
@@ -154,6 +165,7 @@ void game(Plotter* plotter)
 
 			plotter->plotBackground();
 			plotter->plotGameMenu(mouseState);
+			towerPlotter->plot();
 			al_wait_for_vsync();
 			al_flip_display();
 		}

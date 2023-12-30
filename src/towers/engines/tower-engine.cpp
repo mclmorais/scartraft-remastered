@@ -2,27 +2,27 @@
 
 TowerEngine::TowerEngine()
 {
-    currentSelection = TowerType::None;
+    currentSelection = TowerType::Bunker;
 
     towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50};
     towerSettings[TowerType::Turret] = {TowerType::Turret, 80};
 
-    towerSlots.push_back(TowerSlot(50, 100));
-    towerSlots.push_back(TowerSlot(50, 300));
-    towerSlots.push_back(TowerSlot(150, 200));
-    towerSlots.push_back(TowerSlot(150, 350));
-    towerSlots.push_back(TowerSlot(200, 500));
-    towerSlots.push_back(TowerSlot(250, 100));
-    towerSlots.push_back(TowerSlot(250, 250));
-    towerSlots.push_back(TowerSlot(250, 400));
-    towerSlots.push_back(TowerSlot(350, 150));
-    towerSlots.push_back(TowerSlot(350, 300));
-    towerSlots.push_back(TowerSlot(350, 550));
-    towerSlots.push_back(TowerSlot(400, 400));
-    towerSlots.push_back(TowerSlot(450, 500));
-    towerSlots.push_back(TowerSlot(500, 250));
-    towerSlots.push_back(TowerSlot(600, 300));
-    towerSlots.push_back(TowerSlot(600, 450));
+    towerSlots.push_back(new TowerSlot(25, 75));
+    towerSlots.push_back(new TowerSlot(25, 275));
+    towerSlots.push_back(new TowerSlot(125, 175));
+    towerSlots.push_back(new TowerSlot(125, 325));
+    towerSlots.push_back(new TowerSlot(175, 475));
+    towerSlots.push_back(new TowerSlot(225, 75));
+    towerSlots.push_back(new TowerSlot(225, 225));
+    towerSlots.push_back(new TowerSlot(225, 375));
+    towerSlots.push_back(new TowerSlot(325, 125));
+    towerSlots.push_back(new TowerSlot(325, 275));
+    towerSlots.push_back(new TowerSlot(325, 525));
+    towerSlots.push_back(new TowerSlot(375, 375));
+    towerSlots.push_back(new TowerSlot(425, 475));
+    towerSlots.push_back(new TowerSlot(475, 225));
+    towerSlots.push_back(new TowerSlot(575, 275));
+    towerSlots.push_back(new TowerSlot(575, 425));
 }
 
 
@@ -36,15 +36,21 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
     if(location == -1)
         return false;
 
-    if(towerSlots.at(location).isOccupied)
+    TowerSlot* slot = towerSlots.at(location);
+
+    if(slot->isOccupied)
         return false;
 
     if(!hasResourcesForPlacement(playerEconomy))
         return false;
     
-    towerSlots.at(location).isOccupied = true;
-    towerSlots.at(location).tower = new Tower(posX, posY);
+    slot->isOccupied = true;
+    slot->tower = new Tower(slot->posX, slot->posY);
+    slot->tower->type = currentSelection;
+
     playerEconomy->minerals -= towerSettings[currentSelection].cost;
+
+    std::cout << "Tower placed (pos. " << location << ") - " << playerEconomy->minerals << " minerals left" << std::endl;
     return true;
 }
 
@@ -55,6 +61,8 @@ bool TowerEngine::hasResourcesForPlacement(PlayerEconomy* playerEconomy)
             return false;
         case TowerType::Bunker:
             return playerEconomy->minerals >= towerSettings[currentSelection].cost;
+        default:
+            return false;
     }
 }
 
@@ -62,9 +70,9 @@ int TowerEngine::selectLocation(int posX, int posY)
 {
     for(int i = 0; i < numberOfTowerLocations; i++)
     {
-        if(posX >= towerSlots.at(i).posX && posX <= towerSlots.at(i).posX + 50)
+        if(posX >= towerSlots.at(i)->posX + 25 && posX <= towerSlots.at(i)->posX + 75)
         {
-            if(posY >= towerSlots.at(i).posY && posY <= towerSlots.at(i).posY + 50)
+            if(posY >= towerSlots.at(i)->posY + 25 && posY <= towerSlots.at(i)->posY + 75)
             {
                 return i;
             }

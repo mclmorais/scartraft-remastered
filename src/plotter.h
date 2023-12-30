@@ -2,7 +2,7 @@
 #define __PLOTTER_H__
 
 #include <allegro5/allegro.h>
-#include "tower-type.enum.h"
+#include "towers/tower-type.enum.h"
 #include "bitmap-loader.h"
 
 class Plotter

@@ -17,6 +17,7 @@ class BitmapLoader
         ALLEGRO_BITMAP* bunkerButton[2];
         ALLEGRO_BITMAP* towerButton[2];
         ALLEGRO_BITMAP* siegeButton[2];
+        ALLEGRO_BITMAP* beacons;
 
     private:
         void loadSprites(int numberOfSprites, std::string spriteName, ALLEGRO_BITMAP* sprites[]);

@@ -34,32 +34,33 @@ void Plotter::plotMainMenu(int variation)
 void Plotter::plotBackground()
 {
     al_draw_bitmap(bitmapLoader->background, 0, 0, 0);
+    al_draw_bitmap(bitmapLoader->beacons, 0, 0, 0);
 }
 
 void Plotter::plotGameMenu(ALLEGRO_MOUSE_STATE mouseState)
 {
-    TowerType highlight = checkHighlight(mouseState);
+    TowerType::TowerType highlight = checkHighlight(mouseState);
     al_draw_bitmap(bitmapLoader->gameMenu, 630, 0, 0);
-	al_draw_bitmap(bitmapLoader->bunkerButton[highlight == Bunker ? 1 : 0], 715, 235      , 0);
-	al_draw_bitmap(bitmapLoader->towerButton[highlight == Turret ? 1 : 0],  715, 235+65   , 0);
-	al_draw_bitmap(bitmapLoader->siegeButton[highlight == SiegeTank ? 1 : 0],  715, 235+130  , 0);
+	al_draw_bitmap(bitmapLoader->bunkerButton[highlight == TowerType::Bunker ? 1 : 0], 715, 235      , 0);
+	al_draw_bitmap(bitmapLoader->towerButton[highlight == TowerType::Turret ? 1 : 0],  715, 235+65   , 0);
+	al_draw_bitmap(bitmapLoader->siegeButton[highlight == TowerType::SiegeTank ? 1 : 0],  715, 235+130  , 0);
 }
 
-TowerType Plotter::checkHighlight(ALLEGRO_MOUSE_STATE mouseState)
+TowerType::TowerType Plotter::checkHighlight(ALLEGRO_MOUSE_STATE mouseState)
 {
     if(mouseState.x < TOWER_BUTTON_X_START || mouseState.x > TOWER_BUTTON_X_END)
-        return None;
+        return TowerType::None;
 
     if(mouseState.y > BUNKER_BUTTON_Y_START && mouseState.y < BUNKER_BUTTON_Y_END)
-        return Bunker;
+        return TowerType::Bunker;
     
     if(mouseState.y > TOWER_BUTTON_Y_START && mouseState.y < TOWER_BUTTON_Y_END)
-        return Turret;
+        return TowerType::Turret;
     
     if(mouseState.y > SIEGE_BUTTON_Y_START && mouseState.y < SIEGE_BUTTON_Y_END)
-        return SiegeTank;
+        return TowerType::SiegeTank;
 
-    return None;
+    return TowerType::None;
 
 }
 

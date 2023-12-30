@@ -11,11 +11,11 @@
 class TowerPlotter
 {
     public:
-        TowerPlotter(TowerLoader* towerLoader, std::vector<TowerSlot>* towerSlots);
+        TowerPlotter(TowerLoader* towerLoader, std::vector<TowerSlot*>* towerSlots);
         void plot();
 
     private:
-        std::vector<TowerSlot>* towerSlots;
+        std::vector<TowerSlot*>* towerSlots;
         TowerLoader* towerLoader;
 };
 

@@ -4,7 +4,8 @@
 #include <allegro5/allegro5.h>
 #include <map>
 #include "tower-spritesheet.h"
-#include <../tower-type.enum.h>
+#include <iostream>
+#include "../tower-type.enum.h"
 
 class TowerLoader
 {
