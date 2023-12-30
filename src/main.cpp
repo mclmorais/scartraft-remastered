@@ -10,6 +10,9 @@
 #include "bitmap-loader.h"
 #include "plotter.h"
 #include <iostream>
+#include "towers/entities/tower-loader.h"
+#include "towers/entities/tower-plotter.h"
+#include "towers/engines/tower-engine.h"
 
 #define REFRESH_RATE 60
 #define LEFTBUTTON 1
@@ -22,7 +25,7 @@ int main()
     al_init();
 	al_install_mouse();
 	al_install_keyboard();
-	!al_init_image_addon();
+	al_init_image_addon();
 	al_init_font_addon();
 	al_init_ttf_addon();
 	al_install_audio();
@@ -112,6 +115,14 @@ void mainMenu(Plotter* plotter)
 
 void game(Plotter* plotter)
 {
+
+	TowerLoader* towerLoader = new TowerLoader();
+	towerLoader->loadSprites();
+
+	TowerEngine* towerEngine = new TowerEngine();
+	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
+
+	
 
 	ALLEGRO_MOUSE_STATE mouseState;
 	double fixedDownTime = 1.0f / REFRESH_RATE;
