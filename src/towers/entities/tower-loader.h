@@ -9,6 +9,10 @@
 
 class TowerLoader
 {
+    static const int bunkerAttackingSpritesCount = 5;
+    static const int turretAttackingSpritesCount = 2;
+    static const int siegeAttackingSpritesCount = 6;
+
     public:
         std::map<TowerType::TowerType, TowerSpritesheet*> spritesheets;
         void loadSprites();

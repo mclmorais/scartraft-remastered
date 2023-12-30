@@ -14,7 +14,8 @@ void TowerPlotter::plot()
             continue;
 
         Tower* tower = this->towerSlots->at(i)->tower;
+        TowerSpritesheet* spritesheet = this->towerLoader->spritesheets[tower->type];
 
-        al_draw_bitmap(towerLoader->spritesheets[tower->type]->baseSprite, tower->posX, tower->posY, 0);
+        al_draw_bitmap(spritesheet->baseSprite, tower->posX + spritesheet->spriteOffsetX, tower->posY + spritesheet->spriteOffsetY, 0);
     }
 }
