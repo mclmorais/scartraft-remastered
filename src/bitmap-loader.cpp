@@ -25,6 +25,8 @@ void BitmapLoader::loadBackground()
         std::cout << "Failed to load background" << std::endl;
         exit(6);
     }
+
+    beacons = al_load_bitmap("../assets/interface/game-menu/beacons.tga");
 }
 
 void BitmapLoader::loadGameMenu()

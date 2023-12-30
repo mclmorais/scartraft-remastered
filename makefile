@@ -10,5 +10,14 @@ CFLAGS = $(shell pkg-config \
 	allegro_acodec-5 \
 	--libs --cflags)
 
-hello: src/main.cpp src/plotter.cpp src/bitmap-loader.cpp
-	$(CC) src/main.cpp src/plotter.cpp src/bitmap-loader.cpp -o out/scartraft $(CFLAGS)
+hello: 
+	$(CC) \
+	src/main.cpp \
+	src/plotter.cpp \
+	src/bitmap-loader.cpp \
+	src/towers/engines/tower-engine.cpp \
+	src/towers/entities/tower-loader.cpp \
+	src/towers/entities/tower.cpp \
+	src/towers/entities/tower-plotter.cpp \
+	-o out/scartraft \
+	$(CFLAGS)
