@@ -8,22 +8,22 @@ TowerEngine::TowerEngine()
     towerSettings[TowerType::Turret] = {TowerType::Turret, 80, 0, 40, 150, 0.8};
     towerSettings[TowerType::SiegeTank] = {TowerType::SiegeTank, 120, 60, 400, 120, 0.4};
 
-    towerSlots.push_back(new TowerSlot(25, 75));
-    towerSlots.push_back(new TowerSlot(25, 275));
-    towerSlots.push_back(new TowerSlot(125, 175));
-    towerSlots.push_back(new TowerSlot(125, 325));
-    towerSlots.push_back(new TowerSlot(175, 475));
-    towerSlots.push_back(new TowerSlot(225, 75));
-    towerSlots.push_back(new TowerSlot(225, 225));
-    towerSlots.push_back(new TowerSlot(225, 375));
-    towerSlots.push_back(new TowerSlot(325, 125));
-    towerSlots.push_back(new TowerSlot(325, 275));
-    towerSlots.push_back(new TowerSlot(325, 525));
-    towerSlots.push_back(new TowerSlot(375, 375));
-    towerSlots.push_back(new TowerSlot(425, 475));
-    towerSlots.push_back(new TowerSlot(475, 225));
-    towerSlots.push_back(new TowerSlot(575, 275));
-    towerSlots.push_back(new TowerSlot(575, 425));
+    towerSlots.push_back(new TowerSlot(75, 125));
+    towerSlots.push_back(new TowerSlot(75, 325));
+    towerSlots.push_back(new TowerSlot(175, 225));
+    towerSlots.push_back(new TowerSlot(175, 375));
+    towerSlots.push_back(new TowerSlot(225, 525));
+    towerSlots.push_back(new TowerSlot(275, 125));
+    towerSlots.push_back(new TowerSlot(275, 275));
+    towerSlots.push_back(new TowerSlot(275, 425));
+    towerSlots.push_back(new TowerSlot(375, 175));
+    towerSlots.push_back(new TowerSlot(375, 325));
+    towerSlots.push_back(new TowerSlot(375, 575));
+    towerSlots.push_back(new TowerSlot(425, 425));
+    towerSlots.push_back(new TowerSlot(475, 525));
+    towerSlots.push_back(new TowerSlot(525, 275));
+    towerSlots.push_back(new TowerSlot(625, 325));
+    towerSlots.push_back(new TowerSlot(625, 475));
 }
 
 bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
@@ -108,9 +108,9 @@ int TowerEngine::selectLocation(int posX, int posY)
 {
     for(int i = 0; i < numberOfTowerLocations; i++)
     {
-        if(posX >= towerSlots.at(i)->posX + 25 && posX <= towerSlots.at(i)->posX + 75)
+        if(posX >= towerSlots.at(i)->posX - 25 && posX <= towerSlots.at(i)->posX + 25)
         {
-            if(posY >= towerSlots.at(i)->posY + 25 && posY <= towerSlots.at(i)->posY + 75)
+            if(posY >= towerSlots.at(i)->posY - 25 && posY <= towerSlots.at(i)->posY + 25)
             {
                 return i;
             }
