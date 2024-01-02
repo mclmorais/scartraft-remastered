@@ -3,8 +3,8 @@
 void TowerLoader::loadSprites()
 {
     spritesheets[TowerType::Bunker] = new TowerSpritesheet();
-    spritesheets[TowerType::Bunker]->spriteOffsetX = 0;
-    spritesheets[TowerType::Bunker]->spriteOffsetY = 0;
+    spritesheets[TowerType::Bunker]->spriteOffsetX = -50;
+    spritesheets[TowerType::Bunker]->spriteOffsetY = -50;
     spritesheets[TowerType::Bunker]->attackingSpritesCount = bunkerAttackingSpritesCount;
     spritesheets[TowerType::Bunker]->attackFramesCount = 30;
     spritesheets[TowerType::Bunker]->baseSprite = al_load_bitmap("../assets/towers/bunker/base.tga");
@@ -21,8 +21,8 @@ void TowerLoader::loadSprites()
     }
 
     spritesheets[TowerType::Turret] = new TowerSpritesheet();
-    spritesheets[TowerType::Turret]->spriteOffsetX = 20;
-    spritesheets[TowerType::Turret]->spriteOffsetY = 10;
+    spritesheets[TowerType::Turret]->spriteOffsetX = -30;
+    spritesheets[TowerType::Turret]->spriteOffsetY = -40;
     spritesheets[TowerType::Turret]->attackingSpritesCount = turretAttackingSpritesCount;
     spritesheets[TowerType::Turret]->attackFramesCount = 10;
     spritesheets[TowerType::Turret]->baseSprite = al_load_bitmap("../assets/towers/turret/base.tga");
@@ -39,8 +39,8 @@ void TowerLoader::loadSprites()
     }
 
     spritesheets[TowerType::SiegeTank] = new TowerSpritesheet();
-    spritesheets[TowerType::SiegeTank]->spriteOffsetX = -5;
-    spritesheets[TowerType::SiegeTank]->spriteOffsetY = -5;
+    spritesheets[TowerType::SiegeTank]->spriteOffsetX = -55;
+    spritesheets[TowerType::SiegeTank]->spriteOffsetY = -55;
     spritesheets[TowerType::SiegeTank]->attackingSpritesCount = siegeAttackingSpritesCount;
     spritesheets[TowerType::SiegeTank]->attackFramesCount = 30;
     spritesheets[TowerType::SiegeTank]->baseSprite = al_load_bitmap("../assets/towers/siege/base.tga");
