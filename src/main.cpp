@@ -170,6 +170,8 @@ void game(Plotter* plotter)
 			al_get_mouse_state(&mouseState);
 			
 			setSelection(mouseState, towerEngine);
+			towerEngine->attack();
+			towerEngine->coolDown();
 
 			// TODO: pensar se verificação de botão deveria ficar aqui mesmo
 			if (mouseState.buttons == LEFTBUTTON)
