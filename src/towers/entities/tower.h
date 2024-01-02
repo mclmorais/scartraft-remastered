@@ -2,21 +2,32 @@
 #define TOWER_H
 
 #include "../tower-type.enum.h"
+#include "../tower-status.enum.h"
+
+struct TowerSettings {
+    TowerType::TowerType type;
+    int mineralCost;
+    int gasCost;
+    int damage;
+    int range;
+    double attackSpeed;
+};
 
 class Tower
 {
     public:
-        Tower (int posX, int posY);
+        Tower (int posX, int posY, TowerSettings* towerSettings);
         TowerType::TowerType type;
+        TowerStatus status;
         int posX;
         int posY;
         bool isActive;
         bool isAttacking;
+        double range;
+        double attackSpeed;
+        double attackDuration;
+        double cooldownTimer;
 };
 
-struct TowerSettings {
-    TowerType::TowerType type;
-    int cost;
-};
 
 #endif // TOWER_H

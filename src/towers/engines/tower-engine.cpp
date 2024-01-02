@@ -4,9 +4,9 @@ TowerEngine::TowerEngine()
 {
     currentSelection = TowerType::None;
 
-    towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50};
-    towerSettings[TowerType::Turret] = {TowerType::Turret, 80};
-    towerSettings[TowerType::SiegeTank] = {TowerType::SiegeTank, 120};
+    towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50, 0, 20, 100, 1};
+    towerSettings[TowerType::Turret] = {TowerType::Turret, 80, 0, 40, 150, 0.8};
+    towerSettings[TowerType::SiegeTank] = {TowerType::SiegeTank, 120, 60, 400, 120, 0.4};
 
     towerSlots.push_back(new TowerSlot(25, 75));
     towerSlots.push_back(new TowerSlot(25, 275));
@@ -45,10 +45,11 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
         return false;
     
     slot->isOccupied = true;
-    slot->tower = new Tower(slot->posX, slot->posY);
+    slot->tower = new Tower(slot->posX, slot->posY, &towerSettings[currentSelection]);
     slot->tower->type = currentSelection;
+    slot->tower->status = READY;
 
-    playerEconomy->minerals -= towerSettings[currentSelection].cost;
+    playerEconomy->minerals -= towerSettings[currentSelection].mineralCost;
 
     currentSelection = TowerType::None;
 
@@ -56,9 +57,51 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
     return true;
 }
 
+void TowerEngine::attack()
+{
+    for(int i = 0; i < towerSlots.size(); i++)
+    {
+        TowerSlot* slot = towerSlots.at(i);
+        if(!slot->isOccupied)
+            continue;
+
+        Tower* tower = slot->tower;
+        if(tower->status == READY)
+        {
+            std::cout << "Tower " << i << " is attacking" << std::endl;
+            // TODO: reduz vida do creep aqui
+            tower->status = COOLING_DOWN;
+        }
+    }
+}
+
+void TowerEngine::coolDown()
+{
+    for(int i = 0; i < towerSlots.size(); i++)
+    {
+        TowerSlot* slot = towerSlots.at(i);
+        if(!slot->isOccupied)
+            continue;
+
+        Tower* tower = slot->tower;
+        if(tower->status == COOLING_DOWN)
+        {
+            tower->cooldownTimer++;
+            // std::cout << "Tower " << i << " is cooling down (" << tower->cooldownTimer << "/" << tower->attackDuration << ")" << std::endl; 
+
+            if(tower->cooldownTimer >= tower->attackDuration)
+            {
+                // std::cout << "Tower " << i << " is ready" << std::endl;
+                tower->cooldownTimer = 0;
+                tower->status = READY;
+            }
+        }
+    }
+}
+
 bool TowerEngine::hasResourcesForPlacement(PlayerEconomy* playerEconomy)
 {
-    return playerEconomy->minerals >= towerSettings[currentSelection].cost;
+    return playerEconomy->minerals >= towerSettings[currentSelection].mineralCost;
 }
 
 int TowerEngine::selectLocation(int posX, int posY)

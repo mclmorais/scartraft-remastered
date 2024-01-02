@@ -8,7 +8,6 @@
 #include <map>
 #include <iostream>
 
-
 class TowerSlot
 {
     public:
@@ -19,13 +18,14 @@ class TowerSlot
         int posX;
 };
 
-
 class TowerEngine
 {
     public:
         TowerEngine();
         TowerType::TowerType currentSelection;
         bool placeTower(int posX, int posY, PlayerEconomy* playerEconomy);
+        void attack();
+        void coolDown();
         std::vector<TowerSlot*> towerSlots;
 
     private:
