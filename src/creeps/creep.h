@@ -24,8 +24,8 @@ class Creep
         CreepType type;
         CreepStatus status;
 
-        int posX;
-        int posY;
+        double posX;
+        double posY;
         CreepDirection direction;
 
         double health;
