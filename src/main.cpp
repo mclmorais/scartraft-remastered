@@ -131,18 +131,15 @@ void mainMenu(Plotter* plotter)
 void game(Plotter* plotter)
 {
 
+	auto mainFont = al_load_font("../assets/fonts/prototype.ttf", 18, 0);
+
+
 	std::cout << "TowerLoader init:";
 	TowerLoader* towerLoader = new TowerLoader();
 	towerLoader->loadSprites();
 	std::cout << " ok" << std::endl;
 
-	std::cout << "TowerEngine init:";
-	TowerEngine* towerEngine = new TowerEngine();
-	std::cout << " ok" << std::endl;
 
-	std::cout << "TowerPlotter init:";
-	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
-	std::cout << " ok" << std::endl;
 
 	std::cout << "PlayerEconomy init:";
 	PlayerEconomy* playerEconomy = new PlayerEconomy();
@@ -164,9 +161,17 @@ void game(Plotter* plotter)
 	std::cout << " ok" << std::endl;
 
 	std::cout << "CreepPlotter init:";
-	CreepPlotter* creepPlotter = new CreepPlotter(creepLoader, &creepEngine->creeps, &creepEngine->creepCheckpoints);
+	CreepPlotter* creepPlotter = new CreepPlotter(mainFont, creepLoader, &creepEngine->creeps, &creepEngine->creepCheckpoints);
 	std::cout << " ok" << std::endl;
 
+	std::cout << "TowerEngine init:";
+	TowerEngine* towerEngine = new TowerEngine(&creepEngine->creeps);
+	std::cout << " ok" << std::endl;
+
+	// VER PQ TORRE ESTÁ ATACANDO MESMO QUANDO NÃO TEM NADA NA RANGE
+	std::cout << "TowerPlotter init:";
+	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
+	std::cout << " ok" << std::endl;
 
 
 	

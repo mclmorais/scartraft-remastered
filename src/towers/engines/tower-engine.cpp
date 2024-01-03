@@ -1,6 +1,6 @@
 #include "tower-engine.h"
 
-TowerEngine::TowerEngine()
+TowerEngine::TowerEngine(std::list<Creep*>* creeps)
 {
     currentSelection = TowerType::None;
 
@@ -24,6 +24,8 @@ TowerEngine::TowerEngine()
     towerSlots.push_back(new TowerSlot(525, 275));
     towerSlots.push_back(new TowerSlot(625, 325));
     towerSlots.push_back(new TowerSlot(625, 475));
+
+    this->creeps = creeps;
 }
 
 bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
@@ -59,18 +61,33 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
 
 void TowerEngine::attack()
 {
-    for(int i = 0; i < towerSlots.size(); i++)
+    for(auto towerSlot: towerSlots)
     {
-        TowerSlot* slot = towerSlots.at(i);
-        if(!slot->isOccupied)
+        if(!towerSlot->isOccupied)
             continue;
 
-        Tower* tower = slot->tower;
-        if(tower->status == READY)
+        Tower* tower = towerSlot->tower;
+
+        if(tower->status != READY)
+            continue;
+
+        for(auto creep: *creeps)
         {
-            std::cout << "Tower " << i << " is attacking" << std::endl;
-            // TODO: reduz vida do creep aqui
-            tower->status = COOLING_DOWN;
+            if(creep->health <= 0)
+                continue;
+
+            double distX = tower->posX - creep->posX;
+            double distY = tower->posY - creep->posY;
+            double distance = sqrt(pow(distX, 2) + pow(distY, 2));
+
+            if(tower->range >= distance)
+            {
+                std::cout << "Tower " << tower->type << " is attacking creep " << creep->type << std::endl;
+                creep->health -= tower->damage;
+                tower->status = COOLING_DOWN;
+                break;
+            }
+
         }
     }
 }

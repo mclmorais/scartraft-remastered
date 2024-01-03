@@ -1,10 +1,11 @@
 #include "creep-plotter.h"
 
-CreepPlotter::CreepPlotter(CreepLoader* creepLoader, std::list<Creep*>* creeps, std::vector<std::pair<int, int>>* creepCheckpoints)
+CreepPlotter::CreepPlotter(ALLEGRO_FONT* font, CreepLoader* creepLoader, std::list<Creep*>* creeps, std::vector<std::pair<int, int>>* creepCheckpoints)
 {
     this->creeps = creeps;
     this->creepLoader = creepLoader;
     this->creepCheckpoints = creepCheckpoints;
+    this->font = font;
 }
 
 void CreepPlotter::plot()
@@ -50,6 +51,8 @@ void CreepPlotter::plot()
 
         if(sprite != nullptr)
             al_draw_bitmap(sprite, creep->posX - spritesheet->spriteOffsetX, creep->posY - spritesheet->spriteOffsetY, 0);
+
+        al_draw_text(this->font, al_map_rgb(255, 255, 255), creep->posX, creep->posY, ALLEGRO_ALIGN_CENTER, std::to_string(creep->health).c_str());
    }
 
 

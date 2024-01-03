@@ -6,6 +6,7 @@ Tower::Tower (int posX, int posY, TowerSettings* towerSettings)
     isAttacking = false;
     this->posX = posX;
     this->posY = posY;
+    this->damage = towerSettings->damage;
     attackSpeed = towerSettings->attackSpeed;
     attackDuration = 60.0 / towerSettings->attackSpeed; // TODO: transformar em define
     range = towerSettings->range;

@@ -16,7 +16,7 @@ void CreepEngine::planCheckpoints()
 
 void CreepEngine::planCreeps()
 {
-    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 2};
+    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.7};
     creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 1.2};
     creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 0.8};
     creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 0.6};

@@ -9,10 +9,11 @@
 class CreepPlotter
 {
     public:
-        CreepPlotter(CreepLoader* creepLoader, std::list<Creep*>* creeps, std::vector<std::pair<int, int>>* creepCheckpoints);
+        CreepPlotter(ALLEGRO_FONT* font, CreepLoader* creepLoader, std::list<Creep*>* creeps, std::vector<std::pair<int, int>>* creepCheckpoints);
         void plot();
 
     private:
+        ALLEGRO_FONT* font;
         std::list<Creep*>* creeps;
         std::vector<std::pair<int, int>>* creepCheckpoints;
         CreepLoader* creepLoader;
