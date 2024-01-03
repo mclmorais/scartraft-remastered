@@ -38,9 +38,9 @@ class CreepWave
 {
     public:
         void addCreep(CreepType type, int count);
-
+        std::vector<CreepType> creepTypes;
         double spawnDelay;
 
+
     private:
-        std::vector<CreepType> creepTypes;
 };
