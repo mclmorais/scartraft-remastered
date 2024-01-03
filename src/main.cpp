@@ -13,6 +13,7 @@
 #include "towers/entities/tower-loader.h"
 #include "towers/entities/tower-plotter.h"
 #include "towers/engines/tower-engine.h"
+#include "creeps/creep-engine.h"
 
 #define REFRESH_RATE 60
 #define LEFTBUTTON 1
@@ -144,7 +145,13 @@ void game(Plotter* plotter)
 	PlayerEconomy* playerEconomy = new PlayerEconomy();
 	playerEconomy->gas = 500;
 	playerEconomy->minerals = 500;
-	
+
+	std::cout << "CreepEngine init:";
+	CreepEngine* creepEngine = new CreepEngine();
+	creepEngine->planCreeps();
+	creepEngine->planWaves();
+	creepEngine->startWaveTimer();
+	std::cout << " ok" << std::endl;
 
 	ALLEGRO_MOUSE_STATE mouseState;
 	double fixedDownTime = 1.0f / REFRESH_RATE;
@@ -172,6 +179,9 @@ void game(Plotter* plotter)
 			setSelection(mouseState, towerEngine);
 			towerEngine->attack();
 			towerEngine->coolDown();
+
+			creepEngine->manageWaves();
+			creepEngine->moveCreeps();
 
 			// TODO: pensar se verificação de botão deveria ficar aqui mesmo
 			if (mouseState.buttons == LEFTBUTTON)
