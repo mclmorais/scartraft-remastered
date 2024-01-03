@@ -24,6 +24,7 @@ class Tower
         bool isActive;
         bool isAttacking;
         double range;
+        double damage;
         double attackSpeed;
         double attackDuration;
         double cooldownTimer;

@@ -4,9 +4,12 @@
 #include "../tower-type.enum.h"
 #include "../entities/tower.h"
 #include "../../player-economy.h"
+#include "../../creeps/creep.h"
 #include <vector>
 #include <map>
+#include <list>
 #include <iostream>
+#include "math.h"
 
 class TowerSlot
 {
@@ -21,7 +24,7 @@ class TowerSlot
 class TowerEngine
 {
     public:
-        TowerEngine();
+        TowerEngine(std::list<Creep*>* creeps);
         TowerType::TowerType currentSelection;
         bool placeTower(int posX, int posY, PlayerEconomy* playerEconomy);
         void attack();
@@ -29,6 +32,7 @@ class TowerEngine
         std::vector<TowerSlot*> towerSlots;
 
     private:
+        std::list<Creep*>* creeps;
         static const int numberOfTowerLocations = 16;
         std::map<TowerType::TowerType, TowerSettings> towerSettings;
 
