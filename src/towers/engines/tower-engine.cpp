@@ -82,7 +82,7 @@ void TowerEngine::attack()
 
             if(tower->range >= distance)
             {
-                std::cout << "Tower " << tower->type << " is attacking creep " << creep->type << std::endl;
+                std::cout << "Tower " << tower->type << " is attacking creep " << creep->id << std::endl;
                 creep->health -= tower->damage;
                 tower->status = COOLING_DOWN;
                 break;

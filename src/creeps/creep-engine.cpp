@@ -38,7 +38,7 @@ void CreepEngine::startWaveTimer()
 
 void CreepEngine::spawnCreep(CreepSettings* creepSettings, int creepCount)
 {
-    creeps.push_back(new Creep(creepCheckpoints[0].first + 60 * creepCount, creepCheckpoints[0].second - 30 * creepCount, creepSettings));
+    creeps.push_back(new Creep(++creepCounter, creepCheckpoints[0].first + 60 * creepCount, creepCheckpoints[0].second - 30 * creepCount, creepSettings));
 }
 
 void CreepEngine::manageWaves()
@@ -167,5 +167,35 @@ void CreepEngine::moveCreeps()
         creep->walkingTimer++;
         if(creep->walkingTimer > 60)
             creep->walkingTimer = 0;
+    }
+}
+
+void CreepEngine::manageDeadCreeps(PlayerEconomy *playerEconomy)
+{
+
+    auto it = creeps.begin();
+
+    while(it != creeps.end())
+    {
+        auto creep = *it;
+
+        if(creep->health <= 0) {
+            std::cout << "Creep just died" << std::endl;
+            creep->status = DEAD;
+            playerEconomy->minerals += creep->mineralReward;
+            playerEconomy->gas += creep->gasReward;
+        }
+
+        if(creep->status == DEAD)
+        {
+            std::cout << "Removing creep" << std::endl;
+            it = creeps.erase(it);
+            std::cout << "Creep removed" << std::endl;
+            continue;
+            // delete creep;
+            // std::cout << "Creep deleted" << std::endl;
+        } 
+
+        ++it;
     }
 }
