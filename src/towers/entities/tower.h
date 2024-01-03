@@ -8,8 +8,8 @@ struct TowerSettings {
     TowerType::TowerType type;
     int mineralCost;
     int gasCost;
-    int damage;
-    int range;
+    double damage;
+    double range;
     double attackSpeed;
 };
 

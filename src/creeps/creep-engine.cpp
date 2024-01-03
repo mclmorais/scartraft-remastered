@@ -16,7 +16,7 @@ void CreepEngine::planCheckpoints()
 
 void CreepEngine::planCreeps()
 {
-    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.7};
+    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.9};
     creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 1.2};
     creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 0.8};
     creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 0.6};
@@ -191,9 +191,9 @@ void CreepEngine::manageDeadCreeps(PlayerEconomy *playerEconomy)
             std::cout << "Removing creep" << std::endl;
             it = creeps.erase(it);
             std::cout << "Creep removed" << std::endl;
+            delete creep;
+            std::cout << "Creep deleted" << std::endl;
             continue;
-            // delete creep;
-            // std::cout << "Creep deleted" << std::endl;
         } 
 
         ++it;

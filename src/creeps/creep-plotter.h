@@ -2,6 +2,7 @@
 #include "creep.h"
 #include <list>
 #include <math.h>
+#include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
 

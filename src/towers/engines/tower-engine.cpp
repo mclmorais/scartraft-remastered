@@ -4,8 +4,8 @@ TowerEngine::TowerEngine(std::list<Creep*>* creeps)
 {
     currentSelection = TowerType::None;
 
-    towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50, 0, 20, 100, 1};
-    towerSettings[TowerType::Turret] = {TowerType::Turret, 80, 0, 40, 150, 0.8};
+    towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50, 0, 15, 180, 3};
+    towerSettings[TowerType::Turret] = {TowerType::Turret, 80, 0, 1.1, 150, 4};
     towerSettings[TowerType::SiegeTank] = {TowerType::SiegeTank, 120, 60, 400, 120, 0.4};
 
     towerSlots.push_back(new TowerSlot(75, 125));

@@ -132,6 +132,7 @@ void game(Plotter* plotter)
 {
 
 	auto mainFont = al_load_font("../assets/fonts/prototype.ttf", 18, 0);
+	auto healthFont = al_load_font("../assets/fonts/prototype.ttf", 10, 0);
 
 
 	std::cout << "TowerLoader init:";
@@ -161,7 +162,7 @@ void game(Plotter* plotter)
 	std::cout << " ok" << std::endl;
 
 	std::cout << "CreepPlotter init:";
-	CreepPlotter* creepPlotter = new CreepPlotter(mainFont, creepLoader, &creepEngine->creeps, &creepEngine->creepCheckpoints);
+	CreepPlotter* creepPlotter = new CreepPlotter(healthFont, creepLoader, &creepEngine->creeps, &creepEngine->creepCheckpoints);
 	std::cout << " ok" << std::endl;
 
 	std::cout << "TowerEngine init:";

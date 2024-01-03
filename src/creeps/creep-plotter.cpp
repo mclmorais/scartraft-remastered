@@ -16,8 +16,8 @@ void CreepPlotter::plot()
         al_draw_circle(checkpoint.first, checkpoint.second, 5, al_map_rgb(0, 200, 200), 2);
     }
 
-   for(std::list<Creep*>::iterator it = this->creeps->begin(); it != this->creeps->end(); ++it)
-   {
+    for(std::list<Creep*>::iterator it = this->creeps->begin(); it != this->creeps->end(); ++it)
+    {
         Creep* creep = *it;
         al_draw_circle(creep->posX, creep->posY, 5, al_map_rgb(200, 0, 200), 2);
         al_draw_line(
@@ -52,10 +52,10 @@ void CreepPlotter::plot()
         if(sprite != nullptr)
             al_draw_bitmap(sprite, creep->posX - spritesheet->spriteOffsetX, creep->posY - spritesheet->spriteOffsetY, 0);
 
-        drawHealthBar(creep, spritesheet);
-        al_draw_text(this->font, al_map_rgb(255, 255, 255), creep->posX, creep->posY, ALLEGRO_ALIGN_CENTER, std::to_string(creep->health).c_str());
+    }
 
-   }
+    for(std::list<Creep*>::iterator it = this->creeps->begin(); it != this->creeps->end(); ++it)
+        drawHealthBar(*it, this->creepLoader->spritesheets[(*it)->type]);
 }
 
 int CreepPlotter::interpolateFrameToSprite(int currentFrame, int frameCount, int spriteCount)
@@ -69,17 +69,30 @@ int CreepPlotter::interpolateFrameToSprite(int currentFrame, int frameCount, int
 
 void CreepPlotter::drawHealthBar(Creep* creep, CreepSpritesheet* spritesheet)
 {
-    auto filledBarsCount = interpolateHealthToBar(creep->health, creep->maxHealth, spritesheet->numberOfBars);
+    auto interpolatedValue = creep->health * spritesheet->numberOfBars / (double)creep->maxHealth;
+
+    auto barSize = spritesheet->numberOfBars * al_get_bitmap_width(spritesheet->bars.first);
+    auto barOffset = barSize / 2;
+
+    // std::cout << "health: " << creep->health << " maxHealth: " << creep->maxHealth << " numberOfBars: " << spritesheet->numberOfBars << std::endl;
+    // std::cout << "interpolatedValue: " << interpolatedValue << std::endl;
 
     for(int i = 0; i < spritesheet->numberOfBars; i++) {
-        if(i <= filledBarsCount)
-            al_draw_bitmap(spritesheet->bars.second, creep->posX+4*i, creep->posY- 10, 0);
-        else
-            al_draw_bitmap(spritesheet->bars.first, creep->posX+4*i, creep->posY - 10, 0);
+        auto alpha = std::min(1.0, (interpolatedValue - i));
+
+        // std::cout << "bar " << i << " alpha: " << alpha << std::endl;
+
+        if(alpha < 1)
+        al_draw_bitmap(spritesheet->bars.first, creep->posX - barOffset + 4 * i, creep->posY - 25, 0);
+
+        if(alpha > 0)
+            al_draw_tinted_bitmap(spritesheet->bars.second, al_map_rgba_f(alpha, alpha, alpha, alpha), creep->posX - barOffset + 4 * i, creep->posY - 25, 0);
     }
+    
+            al_draw_text(this->font, al_map_rgb(255, 255, 255), creep->posX - barOffset - 10, creep->posY - 25 - 2, ALLEGRO_ALIGN_CENTER, std::to_string((int)creep->health).c_str());
 }
 
 double CreepPlotter::interpolateHealthToBar(int health, int maxHealth, int numberOfBars)
 {
-    return health * (numberOfBars - 1) / (double)maxHealth;
+    return health * numberOfBars / (double)maxHealth;
 }
