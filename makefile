@@ -19,5 +19,9 @@ hello:
 	src/towers/entities/tower-loader.cpp \
 	src/towers/entities/tower.cpp \
 	src/towers/entities/tower-plotter.cpp \
+	src/creeps/creep-engine.cpp \
+	src/creeps/creep-loader.cpp \
+	src/creeps/creep.cpp \
+	src/creeps/creep-plotter.cpp \
 	-o out/scartraft \
 	$(CFLAGS)

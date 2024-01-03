@@ -46,6 +46,9 @@
         "typeinfo": "cpp",
         "iostream": "cpp",
         "istream": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "creep-loader.h": "c",
+        "creep-spritesheet.h": "c",
+        "list": "cpp"
     }
 }
