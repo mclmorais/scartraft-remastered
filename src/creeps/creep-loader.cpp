@@ -7,6 +7,7 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::MARINE]->spriteOffsetY = 55;
     spritesheets[CreepType::MARINE]->walkingSpritesCount = 10;
     spritesheets[CreepType::MARINE]->walkingFramesCount = 30;
+    spritesheets[CreepType::MARINE]->numberOfBars = 4;
 
     spritesheets[CreepType::MARINE]->bars.first = al_load_bitmap("../assets/bars/default-bar-empty.png");
     spritesheets[CreepType::MARINE]->bars.second = al_load_bitmap("../assets/bars/default-bar-full.png");

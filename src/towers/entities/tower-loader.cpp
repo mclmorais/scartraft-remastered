@@ -6,7 +6,7 @@ void TowerLoader::loadSprites()
     spritesheets[TowerType::Bunker]->spriteOffsetX = -50;
     spritesheets[TowerType::Bunker]->spriteOffsetY = -50;
     spritesheets[TowerType::Bunker]->attackingSpritesCount = bunkerAttackingSpritesCount;
-    spritesheets[TowerType::Bunker]->attackFramesCount = 30;
+    spritesheets[TowerType::Bunker]->attackFramesCount = 10;
     spritesheets[TowerType::Bunker]->baseSprite = al_load_bitmap("../assets/towers/bunker/base.tga");
     if(!spritesheets[TowerType::Bunker]->baseSprite)
         std::cout << "Error loading bunker base sprite" << std::endl;
