@@ -3,8 +3,8 @@
 void CreepLoader::loadSprites()
 {
     spritesheets[CreepType::MARINE] = new CreepSpritesheet();
-    spritesheets[CreepType::MARINE]->spriteOffsetX = 0;
-    spritesheets[CreepType::MARINE]->spriteOffsetY = 0;
+    spritesheets[CreepType::MARINE]->spriteOffsetX = 55;
+    spritesheets[CreepType::MARINE]->spriteOffsetY = 55;
     spritesheets[CreepType::MARINE]->walkingSpritesCount = 10;
     spritesheets[CreepType::MARINE]->walkingFramesCount = 30;
 

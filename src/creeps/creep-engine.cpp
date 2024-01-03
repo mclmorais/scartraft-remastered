@@ -141,7 +141,7 @@ void CreepEngine::moveCreeps()
                 break;
         }
 
-        std::cout << "Corner target: " << creep->cornerTarget << " Direction: " << directionString << " posX: " << creep->posX << " posY: " << creep->posY << std::endl;
+        // std::cout << "Corner target: " << creep->cornerTarget << " Direction: " << directionString << " posX: " << creep->posX << " posY: " << creep->posY << std::endl;
 
 
         switch(creep->direction)
