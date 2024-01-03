@@ -19,7 +19,7 @@ struct CreepSettings {
 class Creep
 {
     public:
-        Creep(CreepSettings* creepSettings);
+        Creep(int posX, int posY, CreepSettings* creepSettings);
 
         CreepType type;
         CreepStatus status;
@@ -32,6 +32,10 @@ class Creep
         double speed;
         double mineralReward;
         double gasReward;
+
+        double walkingTimer;
+        int cornerTarget;
+
 };
 
 class CreepWave

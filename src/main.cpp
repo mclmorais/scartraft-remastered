@@ -14,6 +14,8 @@
 #include "towers/entities/tower-plotter.h"
 #include "towers/engines/tower-engine.h"
 #include "creeps/creep-engine.h"
+#include "creeps/creep-loader.h"
+#include "creeps/creep-plotter.h"
 
 #define REFRESH_RATE 60
 #define LEFTBUTTON 1
@@ -142,16 +144,32 @@ void game(Plotter* plotter)
 	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
 	std::cout << " ok" << std::endl;
 
+	std::cout << "PlayerEconomy init:";
 	PlayerEconomy* playerEconomy = new PlayerEconomy();
 	playerEconomy->gas = 500;
 	playerEconomy->minerals = 500;
+	std::cout << " ok" << std::endl;
 
 	std::cout << "CreepEngine init:";
 	CreepEngine* creepEngine = new CreepEngine();
 	creepEngine->planCreeps();
 	creepEngine->planWaves();
+	creepEngine->planCheckpoints();
 	creepEngine->startWaveTimer();
 	std::cout << " ok" << std::endl;
+
+	std::cout << "CreepLoader init:";
+	CreepLoader* creepLoader = new CreepLoader();
+	creepLoader->loadSprites();
+	std::cout << " ok" << std::endl;
+
+	std::cout << "CreepPlotter init:";
+	CreepPlotter* creepPlotter = new CreepPlotter(creepLoader, &creepEngine->creeps, &creepEngine->creepCheckpoints);
+	std::cout << " ok" << std::endl;
+
+
+
+	
 
 	ALLEGRO_MOUSE_STATE mouseState;
 	double fixedDownTime = 1.0f / REFRESH_RATE;
@@ -194,6 +212,7 @@ void game(Plotter* plotter)
 			plotter->plotBackground();
 			plotter->plotGameMenu(towerEngine->currentSelection);
 			towerPlotter->plot();
+			creepPlotter->plot();
 			al_wait_for_vsync();
 			al_flip_display();
 		}
