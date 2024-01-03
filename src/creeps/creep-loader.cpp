@@ -8,6 +8,9 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::MARINE]->walkingSpritesCount = 10;
     spritesheets[CreepType::MARINE]->walkingFramesCount = 30;
 
+    spritesheets[CreepType::MARINE]->bars.first = al_load_bitmap("../assets/bars/default-bar-empty.png");
+    spritesheets[CreepType::MARINE]->bars.second = al_load_bitmap("../assets/bars/default-bar-full.png");
+
     for(int i = 0; i < spritesheets[CreepType::MARINE]->walkingSpritesCount; i++)
     {
         std::string filename = "../assets/creeps/marine/walking-down-left-" + std::to_string(i + 1) + ".tga";

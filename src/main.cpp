@@ -205,6 +205,7 @@ void game(Plotter* plotter)
 
 			creepEngine->manageWaves();
 			creepEngine->moveCreeps();
+			creepEngine->manageDeadCreeps(playerEconomy);
 
 			// TODO: pensar se verificação de botão deveria ficar aqui mesmo
 			if (mouseState.buttons == LEFTBUTTON)
