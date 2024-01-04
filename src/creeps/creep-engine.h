@@ -22,6 +22,7 @@ class CreepEngine
         ALLEGRO_TIMER* waveTimer;
         int creepCounter = 0;
     public:
+        ~CreepEngine();
         void planCreeps();
         void planWaves();
         void planCheckpoints();

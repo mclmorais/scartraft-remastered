@@ -3,5 +3,6 @@
 class Player
 {
     public:
-        int health = 20;
+        bool isAlive = true;
+        int health = 5;
 };

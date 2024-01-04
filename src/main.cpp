@@ -17,6 +17,7 @@
 #include "creeps/creep-loader.h"
 #include "creeps/creep-plotter.h"
 #include "player/player.h"
+#include "player/player-engine.h"
 
 #define REFRESH_RATE 60
 #define LEFTBUTTON 1
@@ -137,6 +138,11 @@ void game(Plotter* plotter)
 
 	std::cout << "Player init:";
 	Player* player = new Player();
+	std::cout << " ok" << std::endl;
+
+	std::cout << "PlayerEngine init:";
+	PlayerEngine* playerEngine = new PlayerEngine();
+	std::cout << " ok" << std::endl;
 
 	std::cout << "TowerLoader init:";
 	TowerLoader* towerLoader = new TowerLoader();
@@ -174,9 +180,6 @@ void game(Plotter* plotter)
 	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
 	std::cout << " ok" << std::endl;
 
-
-	
-
 	ALLEGRO_MOUSE_STATE mouseState;
 	double fixedDownTime = 1.0f / REFRESH_RATE;
 	double oldTime = al_current_time();
@@ -208,6 +211,53 @@ void game(Plotter* plotter)
 			creepEngine->moveCreeps();
 			creepEngine->manageDeadCreeps(playerEconomy);
 			creepEngine->manageCreepEOL(player);
+
+			playerEngine->manageGameOver(player);
+
+
+
+			if(!player->isAlive)
+			{
+				std::cout << "Game Over" << std::endl;
+
+				std::cout << "TowerEngine deinit:";
+				delete towerEngine;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "CreepEngine deinit:";
+				delete creepEngine;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "TowerLoader deinit:";
+				delete towerLoader;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "CreepLoader deinit:";
+				delete creepLoader;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "PlayerEngine deinit:";
+				delete playerEngine;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "PlayerEconomy deinit:";
+				delete playerEconomy;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "Player deinit:";
+				delete player;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "TowerPlotter deinit:";
+				delete towerPlotter;
+				std::cout << " ok" << std::endl;
+
+				std::cout << "CreepPlotter deinit:";
+				delete creepPlotter;
+				std::cout << " ok" << std::endl;
+				
+				return;
+			}
 
 			// TODO: pensar se verificação de botão deveria ficar aqui mesmo
 			if (mouseState.buttons == LEFTBUTTON)

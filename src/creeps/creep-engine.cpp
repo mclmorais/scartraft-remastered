@@ -220,3 +220,14 @@ void CreepEngine::manageCreepEOL(Player* player)
         ++it;
     }
 }
+
+CreepEngine::~CreepEngine()
+{
+    std::cout << std::endl; "Deinitializing creeps: ";
+    for(auto creep : creeps)
+    {
+        std::cout << creep->id << " ";
+        delete creep;
+    }
+    std::cout << std::endl;
+}
