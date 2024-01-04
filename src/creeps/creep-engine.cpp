@@ -16,18 +16,23 @@ void CreepEngine::planCheckpoints()
 
 void CreepEngine::planCreeps()
 {
-    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.9, 1};
+    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 1.2, 1};
     creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 1.2, 1.5};
     creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 0.8, 2};
     creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 0.6, 2};
-    creepSettings[COLOSSUS] = {COLOSSUS, LAND, 400, 300, 800, 0.4, 5};
+    creepSettings[COLOSSUS] = {COLOSSUS, LAND, 400, 300, 800, 1.0, 5};
 }
 
 void CreepEngine::planWaves()
 {
     creepWaves.push_back(new CreepWave());
-    creepWaves[0]->addCreep(MARINE, 10);
+    creepWaves[0]->addCreep(MARINE, 2);
+    creepWaves[0]->addCreep(HYDRALISK, 2);
+    creepWaves[0]->addCreep(THOR, 2);
+    creepWaves[0]->addCreep(VOID_RAY, 2);
+    creepWaves[0]->addCreep(COLOSSUS, 2);
     creepWaves[0]->spawnDelay = 1;
+
 }
 
 void CreepEngine::startWaveTimer()
@@ -38,6 +43,7 @@ void CreepEngine::startWaveTimer()
 
 void CreepEngine::spawnCreep(CreepSettings* creepSettings, int creepCount)
 {
+    std::cout << "Spawning creep " << creepCounter << " of type " << creepSettings->type << std::endl;
     creeps.push_back(new Creep(++creepCounter, creepCheckpoints[0].first + 60 * creepCount, creepCheckpoints[0].second - 30 * creepCount, creepSettings));
 }
 

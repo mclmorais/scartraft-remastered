@@ -31,23 +31,8 @@ void CreepPlotter::plot()
        CreepSpritesheet* spritesheet = this->creepLoader->spritesheets[creep->type];
        
         auto frame = interpolateFrameToSprite(creep->walkingTimer, spritesheet->walkingFramesCount, spritesheet->walkingSpritesCount);
-        // std::cout << "frame: " << frame << std::endl;
-        ALLEGRO_BITMAP* sprite = nullptr;
-        switch(creep->direction)
-        {
-            case DOWN_LEFT:
-                sprite = spritesheet->walkingSpritesFrontLeft[frame];
-                break;
-            case DOWN_RIGHT:
-                sprite = spritesheet->walkingSpritesFrontRight[frame];
-                break;
-            case UP_LEFT:
-                sprite = spritesheet->walkingSpritesBackLeft[frame];
-                break;
-            case UP_RIGHT:
-                sprite = spritesheet->walkingSpritesBackRight[frame];
-                break;
-        }
+        
+        ALLEGRO_BITMAP* sprite = spritesheet->walkingSprites[creep->direction][frame];
 
         if(sprite != nullptr)
             al_draw_bitmap(sprite, creep->posX - spritesheet->spriteOffsetX, creep->posY - spritesheet->spriteOffsetY, 0);

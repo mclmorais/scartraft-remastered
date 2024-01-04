@@ -3,6 +3,7 @@
 #include <map>
 #include "creep-type.enum.h"
 #include "creep-spritesheet.h"
+#include "../directions.h"
 
 class CreepLoader
 {

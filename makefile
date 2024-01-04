@@ -24,5 +24,6 @@ hello:
 	src/creeps/creep.cpp \
 	src/creeps/creep-plotter.cpp \
 	src/player/player-engine.cpp \
+	src/directions.cpp \
 	-o out/scartraft \
 	$(CFLAGS)

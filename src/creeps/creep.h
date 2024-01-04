@@ -4,8 +4,8 @@
 
 #include "creep-type.enum.h"
 #include "creep-status.enum.h"
-#include "creep-direction.enum.h"
 #include "creep-terrain.enum.h"
+#include "../directions.h"
 
 struct CreepSettings {
         CreepType type;
@@ -29,7 +29,7 @@ class Creep
 
         double posX;
         double posY;
-        CreepDirection direction;
+        Direction direction;
 
         double health;
         double maxHealth;
