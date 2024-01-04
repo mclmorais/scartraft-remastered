@@ -16,6 +16,7 @@
 #include "creeps/creep-engine.h"
 #include "creeps/creep-loader.h"
 #include "creeps/creep-plotter.h"
+#include "player/player.h"
 
 #define REFRESH_RATE 60
 #define LEFTBUTTON 1
@@ -134,13 +135,13 @@ void game(Plotter* plotter)
 	auto mainFont = al_load_font("../assets/fonts/prototype.ttf", 18, 0);
 	auto healthFont = al_load_font("../assets/fonts/prototype.ttf", 10, 0);
 
+	std::cout << "Player init:";
+	Player* player = new Player();
 
 	std::cout << "TowerLoader init:";
 	TowerLoader* towerLoader = new TowerLoader();
 	towerLoader->loadSprites();
 	std::cout << " ok" << std::endl;
-
-
 
 	std::cout << "PlayerEconomy init:";
 	PlayerEconomy* playerEconomy = new PlayerEconomy();
@@ -169,7 +170,6 @@ void game(Plotter* plotter)
 	TowerEngine* towerEngine = new TowerEngine(&creepEngine->creeps);
 	std::cout << " ok" << std::endl;
 
-	// VER PQ TORRE ESTÁ ATACANDO MESMO QUANDO NÃO TEM NADA NA RANGE
 	std::cout << "TowerPlotter init:";
 	TowerPlotter* towerPlotter = new TowerPlotter(towerLoader, &towerEngine->towerSlots);
 	std::cout << " ok" << std::endl;
@@ -207,6 +207,7 @@ void game(Plotter* plotter)
 			creepEngine->manageWaves();
 			creepEngine->moveCreeps();
 			creepEngine->manageDeadCreeps(playerEconomy);
+			creepEngine->manageCreepEOL(player);
 
 			// TODO: pensar se verificação de botão deveria ficar aqui mesmo
 			if (mouseState.buttons == LEFTBUTTON)
@@ -254,6 +255,4 @@ void setSelection(ALLEGRO_MOUSE_STATE mouseState, TowerEngine* towerEngine)
 		towerEngine->currentSelection != TowerType::SiegeTank && std::cout << "Siege Tank selected" << std::endl;
         towerEngine->currentSelection =  TowerType::SiegeTank;
 	}
-
-    
 }

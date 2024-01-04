@@ -14,6 +14,7 @@ Creep::Creep(int id, int posX, int posY, CreepSettings* creepSettings)
     this->mineralReward = creepSettings->mineralReward;
     this->gasReward = creepSettings->gasReward;
     this->cornerTarget = 1;
+    this->damage = creepSettings->damage;
 }
 
 void CreepWave::addCreep(CreepType type, int count)

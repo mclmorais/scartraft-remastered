@@ -16,11 +16,11 @@ void CreepEngine::planCheckpoints()
 
 void CreepEngine::planCreeps()
 {
-    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.9};
-    creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 1.2};
-    creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 0.8};
-    creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 0.6};
-    creepSettings[COLOSSUS] = {COLOSSUS, LAND, 400, 300, 800, 0.4};
+    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.9, 1};
+    creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 1.2, 1.5};
+    creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 0.8, 2};
+    creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 0.6, 2};
+    creepSettings[COLOSSUS] = {COLOSSUS, LAND, 400, 300, 800, 0.4, 5};
 }
 
 void CreepEngine::planWaves()
@@ -82,7 +82,7 @@ void CreepEngine::moveCreeps()
         if(
             (creep->posX >= targetCheckpoint.first - 5 && creep->posX <= targetCheckpoint.first + 5) &&
             (creep->posY >= targetCheckpoint.second - 5 && creep->posY <= targetCheckpoint.second + 5) &&
-            creep->cornerTarget < creepCheckpoints.size() - 1
+            creep->cornerTarget < creepCheckpoints.size()
         )
         {
             creep->cornerTarget++;
@@ -195,6 +195,27 @@ void CreepEngine::manageDeadCreeps(PlayerEconomy *playerEconomy)
             std::cout << "Creep deleted" << std::endl;
             continue;
         } 
+
+        ++it;
+    }
+}
+
+void CreepEngine::manageCreepEOL(Player* player)
+{
+    auto it = creeps.begin();
+
+    while(it != creeps.end())
+    {
+        auto creep = *it;
+
+        if(creep->cornerTarget == creepCheckpoints.size())
+        {
+            std::cout << "Creep reached end of line" << std::endl;
+            player->health -= creep->damage;
+            std::cout << "Player damaged by " << creep->damage << "; health is now " << player->health << std::endl;
+            it = creeps.erase(it);
+            delete creep;
+        }
 
         ++it;
     }
