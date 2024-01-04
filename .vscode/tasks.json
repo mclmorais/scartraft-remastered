@@ -6,7 +6,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "make",
+            "command": "make && cd out && ./scartraft",
             "group": {
                 "kind": "build",
                 "isDefault": true

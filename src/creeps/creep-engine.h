@@ -8,6 +8,7 @@
 #include <allegro5/timer.h>
 #include <iostream>
 #include "../player-economy.h"
+#include "../player/player.h"
 
 #define CHECKPOINT_RANGE = 5
 
@@ -21,6 +22,7 @@ class CreepEngine
         ALLEGRO_TIMER* waveTimer;
         int creepCounter = 0;
     public:
+        ~CreepEngine();
         void planCreeps();
         void planWaves();
         void planCheckpoints();
@@ -28,6 +30,7 @@ class CreepEngine
         void startWaveTimer();
         void manageWaves(); // TODO: continuar aqui
         void manageDeadCreeps(PlayerEconomy* playerEconomy);
+        void manageCreepEOL(Player* player);
         std::list<Creep*> creeps;
         std::vector<std::pair<int, int>> creepCheckpoints;
         

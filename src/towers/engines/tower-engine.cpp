@@ -4,7 +4,7 @@ TowerEngine::TowerEngine(std::list<Creep*>* creeps)
 {
     currentSelection = TowerType::None;
 
-    towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50, 0, 15, 180, 3};
+    towerSettings[TowerType::Bunker] = {TowerType::Bunker, 50, 0, 10, 180, 2.5};
     towerSettings[TowerType::Turret] = {TowerType::Turret, 80, 0, 1.1, 150, 4};
     towerSettings[TowerType::SiegeTank] = {TowerType::SiegeTank, 120, 60, 400, 120, 0.4};
 
@@ -82,7 +82,7 @@ void TowerEngine::attack()
 
             if(tower->range >= distance)
             {
-                std::cout << "Tower " << tower->type << " is attacking creep " << creep->id << std::endl;
+                std::cout << "Tower " << tower->type << " is attacking creep " << creep->id << " for " << tower->damage << " damage" << std::endl;
                 creep->health -= tower->damage;
                 tower->status = COOLING_DOWN;
                 break;
@@ -142,4 +142,22 @@ TowerSlot::TowerSlot(int posX, int posY)
     tower = nullptr;
     this->posX = posX;
     this->posY = posY;
+}
+
+TowerEngine::~TowerEngine()
+{
+    std::cout << std::endl << "    Deleting towers: ";
+    for(int i = 0; i < towerSlots.size(); i++)
+    {
+        if(towerSlots.at(i)->isOccupied)
+        {
+            std::cout << "!";
+            delete towerSlots.at(i)->tower;
+        }
+
+        std::cout << i << " ";
+        delete towerSlots.at(i);
+    }
+
+    std::cout << std::endl;
 }

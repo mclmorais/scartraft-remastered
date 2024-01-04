@@ -25,6 +25,7 @@ class TowerEngine
 {
     public:
         TowerEngine(std::list<Creep*>* creeps);
+        ~TowerEngine();
         TowerType::TowerType currentSelection;
         bool placeTower(int posX, int posY, PlayerEconomy* playerEconomy);
         void attack();

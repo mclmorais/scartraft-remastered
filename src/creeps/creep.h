@@ -14,6 +14,7 @@ struct CreepSettings {
         int gasReward;
         double health;
         double speed;
+        double damage;
 };
 
 class Creep
@@ -35,6 +36,8 @@ class Creep
         double speed;
         double mineralReward;
         double gasReward;
+
+        double damage;
 
         double walkingTimer;
         int cornerTarget;
