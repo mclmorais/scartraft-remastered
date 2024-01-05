@@ -10,7 +10,7 @@ class CreepSpritesheet
 {
     public:
         int walkingSpritesCount = 0;
-        int walkingFramesCount = 0;
+        int innerSpriteHeight = 0;
         int spriteOffsetX = 0;
         int spriteOffsetY = 0;
         int numberOfBars = 10;

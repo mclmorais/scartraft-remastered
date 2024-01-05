@@ -19,6 +19,5 @@ class CreepPlotter
         std::vector<std::pair<int, int>>* creepCheckpoints;
         CreepLoader* creepLoader;
         int interpolateFrameToSprite(int currentFrame, int frameCount, int spriteCount);
-        double interpolateHealthToBar(int health, int maxHealth, int numberOfBars);
         void drawHealthBar(Creep* creep, CreepSpritesheet* spritesheet);
 };

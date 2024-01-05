@@ -15,6 +15,7 @@ struct CreepSettings {
         double health;
         double speed;
         double damage;
+        double totalWalkingTimer;
 };
 
 class Creep
@@ -40,6 +41,7 @@ class Creep
         double damage;
 
         double walkingTimer;
+        double totalWalkingTimer;
         int cornerTarget;
 
 };

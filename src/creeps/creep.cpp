@@ -15,6 +15,8 @@ Creep::Creep(int id, int posX, int posY, CreepSettings* creepSettings)
     this->gasReward = creepSettings->gasReward;
     this->cornerTarget = 1;
     this->damage = creepSettings->damage;
+    this->totalWalkingTimer = creepSettings->totalWalkingTimer;
+    this->walkingTimer = 0;
 }
 
 void CreepWave::addCreep(CreepType type, int count)
