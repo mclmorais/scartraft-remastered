@@ -5,13 +5,13 @@
 #include <algorithm>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
-
+#include "../constants.h"
 
 class CreepPlotter
 {
     public:
         CreepPlotter(ALLEGRO_FONT* font, CreepLoader* creepLoader, std::list<Creep*>* creeps, std::vector<std::pair<int, int>>* creepCheckpoints);
-        void plot();
+        void plot(bool debug);
 
     private:
         ALLEGRO_FONT* font;

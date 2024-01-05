@@ -6,8 +6,8 @@ void CreepLoader::loadSprites()
     auto fullBar = al_load_bitmap("../assets/bars/default-bar-full.png");
 
     spritesheets[CreepType::MARINE] = new CreepSpritesheet();
-    spritesheets[CreepType::MARINE]->spriteOffsetX = 55;
-    spritesheets[CreepType::MARINE]->spriteOffsetY = 55;
+    spritesheets[CreepType::MARINE]->spriteOffsetX = 53;
+    spritesheets[CreepType::MARINE]->spriteOffsetY = 59;
     spritesheets[CreepType::MARINE]->walkingSpritesCount = 10;
     spritesheets[CreepType::MARINE]->walkingFramesCount = 30;
     spritesheets[CreepType::MARINE]->numberOfBars = 4;
@@ -31,8 +31,8 @@ void CreepLoader::loadSprites()
     }
 
     spritesheets[CreepType::COLOSSUS] = new CreepSpritesheet();
-    spritesheets[CreepType::COLOSSUS]->spriteOffsetX = 55;
-    spritesheets[CreepType::COLOSSUS]->spriteOffsetY = 55;
+    spritesheets[CreepType::COLOSSUS]->spriteOffsetX = 60;
+    spritesheets[CreepType::COLOSSUS]->spriteOffsetY = 70;
     spritesheets[CreepType::COLOSSUS]->walkingSpritesCount = 15;
     spritesheets[CreepType::COLOSSUS]->walkingFramesCount = 60;
     spritesheets[CreepType::COLOSSUS]->numberOfBars = 20;
@@ -53,8 +53,8 @@ void CreepLoader::loadSprites()
     }
 
     spritesheets[CreepType::HYDRALISK] = new CreepSpritesheet();
-    spritesheets[CreepType::HYDRALISK]->spriteOffsetX = 55;
-    spritesheets[CreepType::HYDRALISK]->spriteOffsetY = 55;
+    spritesheets[CreepType::HYDRALISK]->spriteOffsetX = 65;
+    spritesheets[CreepType::HYDRALISK]->spriteOffsetY = 70;
     spritesheets[CreepType::HYDRALISK]->walkingSpritesCount = 17;
     spritesheets[CreepType::HYDRALISK]->walkingFramesCount = 40;
     spritesheets[CreepType::HYDRALISK]->numberOfBars = 10;
@@ -75,8 +75,8 @@ void CreepLoader::loadSprites()
     }
 
     spritesheets[CreepType::THOR] = new CreepSpritesheet();
-    spritesheets[CreepType::THOR]->spriteOffsetX = 55;
-    spritesheets[CreepType::THOR]->spriteOffsetY = 55;
+    spritesheets[CreepType::THOR]->spriteOffsetX = 63;
+    spritesheets[CreepType::THOR]->spriteOffsetY = 63;
     spritesheets[CreepType::THOR]->walkingSpritesCount = 15;
     spritesheets[CreepType::THOR]->walkingFramesCount = 60;
     spritesheets[CreepType::THOR]->numberOfBars = 15;
@@ -98,8 +98,8 @@ void CreepLoader::loadSprites()
     }
 
     spritesheets[CreepType::VOID_RAY] = new CreepSpritesheet();
-    spritesheets[CreepType::VOID_RAY]->spriteOffsetX = 55;
-    spritesheets[CreepType::VOID_RAY]->spriteOffsetY = 55;
+    spritesheets[CreepType::VOID_RAY]->spriteOffsetX = 70;
+    spritesheets[CreepType::VOID_RAY]->spriteOffsetY = 75;
     spritesheets[CreepType::VOID_RAY]->walkingSpritesCount = 27;
     spritesheets[CreepType::VOID_RAY]->walkingFramesCount = 120;
     spritesheets[CreepType::VOID_RAY]->numberOfBars = 15;

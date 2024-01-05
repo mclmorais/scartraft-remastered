@@ -8,26 +8,31 @@ CreepPlotter::CreepPlotter(ALLEGRO_FONT* font, CreepLoader* creepLoader, std::li
     this->font = font;
 }
 
-void CreepPlotter::plot()
+void CreepPlotter::plot(bool debug)
 {
 
-    for(auto checkpoint : *this->creepCheckpoints)
+    if(debug)
     {
-        al_draw_circle(checkpoint.first, checkpoint.second, 5, al_map_rgb(0, 200, 200), 2);
+        for(int i = 0; i < creepCheckpoints->size() - 1; i++)
+        {
+            if(i < creepCheckpoints->size() - 1)
+                al_draw_line(
+                    creepCheckpoints->at(i).first, 
+                    creepCheckpoints->at(i).second, 
+                    creepCheckpoints->at(i + 1).first, 
+                    creepCheckpoints->at(i + 1).second, 
+                    al_map_rgb(0, 200, 200), 
+                    2
+                );
+            al_draw_circle(creepCheckpoints->at(i).first, creepCheckpoints->at(i).second, 2, al_map_rgb(0, 200, 200), 2);
+        }
     }
+
 
     for(std::list<Creep*>::iterator it = this->creeps->begin(); it != this->creeps->end(); ++it)
     {
         Creep* creep = *it;
-        al_draw_circle(creep->posX, creep->posY, 5, al_map_rgb(200, 0, 200), 2);
-        al_draw_line(
-            creep->posX, 
-            creep->posY,
-            creepCheckpoints->at(creep->cornerTarget).first, 
-            creepCheckpoints->at(creep->cornerTarget).second,
-            al_map_rgb(200, 0, 200),
-            2
-        );
+
        CreepSpritesheet* spritesheet = this->creepLoader->spritesheets[creep->type];
        
         auto frame = interpolateFrameToSprite(creep->walkingTimer, spritesheet->walkingFramesCount, spritesheet->walkingSpritesCount);
@@ -35,7 +40,53 @@ void CreepPlotter::plot()
         ALLEGRO_BITMAP* sprite = spritesheet->walkingSprites[creep->direction][frame];
 
         if(sprite != nullptr)
+        {
             al_draw_bitmap(sprite, creep->posX - spritesheet->spriteOffsetX, creep->posY - spritesheet->spriteOffsetY, 0);
+
+            if(debug)
+            {
+                al_draw_rectangle(
+                    creep->posX - al_get_bitmap_width(sprite) / 2.0,
+                    creep->posY - al_get_bitmap_height(sprite) / 2.0,
+                    creep->posX + al_get_bitmap_width(sprite) / 2.0,
+                    creep->posY + al_get_bitmap_height(sprite) / 2.0,
+                    al_map_rgb(255, 0, 0),
+                    1 
+                );
+                al_draw_line(
+                    creep->posX,
+                    creep->posY - al_get_bitmap_height(sprite) / 2.0,
+                    creep->posX,
+                    creep->posY + al_get_bitmap_height(sprite) / 2.0,
+                    al_map_rgb(255, 255, 0),
+                    1
+                );
+
+                al_draw_line(
+                    creep->posX - al_get_bitmap_width(sprite) / 2.0,
+                    creep->posY,
+                    creep->posX + al_get_bitmap_width(sprite) / 2.0,
+                    creep->posY,
+                    al_map_rgb(255, 255, 0),
+                    1
+                );
+            }
+
+            if(debug)
+            {
+                al_draw_circle(creep->posX, creep->posY, 2, al_map_rgb(200, 0, 200), 2);
+                al_draw_line(
+                    creep->posX, 
+                    creep->posY,
+                    creepCheckpoints->at(creep->cornerTarget).first, 
+                    creepCheckpoints->at(creep->cornerTarget).second,
+                    al_map_rgba(200, 0, 200, 127),
+                    1
+                );
+            }
+        }
+
+
 
     }
 

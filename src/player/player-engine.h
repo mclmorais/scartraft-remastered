@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../constants.h"
 #include "player.h"
 
 class PlayerEngine

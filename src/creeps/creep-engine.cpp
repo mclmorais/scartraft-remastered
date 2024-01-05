@@ -2,16 +2,16 @@
 
 void CreepEngine::planCheckpoints()
 {
-    this->creepCheckpoints.push_back({597+25, -61+25});
-    this->creepCheckpoints.push_back({395+25, 40+25});
-    this->creepCheckpoints.push_back({537+25, 112+25});
-    this->creepCheckpoints.push_back({333+25, 214+25});
-    this->creepCheckpoints.push_back({137+25, 116+25});
-    this->creepCheckpoints.push_back({-5+25, 187+25});
-    this->creepCheckpoints.push_back({333+25, 356+25});
-    this->creepCheckpoints.push_back({473+25, 286+25});
-    this->creepCheckpoints.push_back({593+25, 346+25});
-    this->creepCheckpoints.push_back({193+25, 546+25});
+    this->creepCheckpoints.push_back({617, -31});
+    this->creepCheckpoints.push_back({415, 70});
+    this->creepCheckpoints.push_back({555, 140});
+    this->creepCheckpoints.push_back({353, 243});
+    this->creepCheckpoints.push_back({160, 145});
+    this->creepCheckpoints.push_back({22, 218});
+    this->creepCheckpoints.push_back({353, 385});
+    this->creepCheckpoints.push_back({495, 315});
+    this->creepCheckpoints.push_back({615, 375});
+    this->creepCheckpoints.push_back({198, 581});
 }
 
 void CreepEngine::planCreeps()
@@ -44,7 +44,7 @@ void CreepEngine::startWaveTimer()
 void CreepEngine::spawnCreep(CreepSettings* creepSettings, int creepCount)
 {
     std::cout << "Spawning creep " << creepCounter << " of type " << creepSettings->type << std::endl;
-    creeps.push_back(new Creep(++creepCounter, creepCheckpoints[0].first + 60 * creepCount, creepCheckpoints[0].second - 30 * creepCount, creepSettings));
+    creeps.push_back(new Creep(++creepCounter, creepCheckpoints[0].first + 60 * creepCount, creepCheckpoints[0].second - 30 * 4 * creepCount, creepSettings));
 }
 
 void CreepEngine::manageWaves()
@@ -91,6 +91,8 @@ void CreepEngine::moveCreeps()
             creep->cornerTarget < creepCheckpoints.size()
         )
         {
+            creep->posX = targetCheckpoint.first;
+            creep->posY = targetCheckpoint.second;
             creep->cornerTarget++;
         }
 

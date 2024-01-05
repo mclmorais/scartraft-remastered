@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../constants.h"
+
 class Player
 {
     public:
         bool isAlive = true;
-        int health = 5;
+        int health = PLAYER_HEALTH;
 };

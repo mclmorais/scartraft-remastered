@@ -1,6 +1,7 @@
 #ifndef TOWER_ENGINE_H
 #define TOWER_ENGINE_H
 
+#include "../../constants.h"
 #include "../tower-type.enum.h"
 #include "../entities/tower.h"
 #include "../../player-economy.h"
