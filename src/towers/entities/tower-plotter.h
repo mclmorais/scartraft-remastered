@@ -15,7 +15,7 @@ class TowerPlotter
 {
     public:
         TowerPlotter(TowerLoader* towerLoader, std::vector<TowerSlot*>* towerSlots);
-        void plot();
+        void plot(bool debug);
 
     private:
         std::vector<TowerSlot*>* towerSlots;

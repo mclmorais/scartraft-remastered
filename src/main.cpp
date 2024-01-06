@@ -101,9 +101,7 @@ void mainMenu(Plotter* plotter)
 
 				if (mousestate.x >= 590 && mousestate.x <= 730 && mousestate.y >= 470 && mousestate.y <= 510)
 				{
-					// _CrtDumpMemoryLeaks();
-					exit(1);
-
+					exit(0);
 				}
 
 			}
@@ -294,7 +292,7 @@ void game(Plotter* plotter)
 
 			plotter->plotBackground();
 			plotter->plotGameMenu(towerEngine->currentSelection);
-			towerPlotter->plot();
+			towerPlotter->plot(debug);
 			creepPlotter->plot(debug);
 			al_wait_for_vsync();
 			al_flip_display();
