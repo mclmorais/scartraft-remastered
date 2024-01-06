@@ -15,17 +15,16 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::MARINE]->bars.first = emptyBar;
     spritesheets[CreepType::MARINE]->bars.second = fullBar;
 
-
-
-    for(int i = 0; i < spritesheets[CreepType::MARINE]->walkingSpritesCount; i++)
+    for (int i = 0; i < spritesheets[CreepType::MARINE]->walkingSpritesCount; i++)
     {
-        
-        for(auto direction : directions)
+
+        for (auto direction : directions)
         {
-            std::string filename = "../assets/creeps/marine/" + direction.second + "/marine-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
+            std::string filename =
+                "../assets/creeps/marine/" + direction.second + "/marine-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
             spritesheets[CreepType::MARINE]->walkingSprites[direction.first].push_back(al_load_bitmap(filename.c_str()));
 
-            if(!spritesheets[CreepType::MARINE]->walkingSprites[direction.first][i])
+            if (!spritesheets[CreepType::MARINE]->walkingSprites[direction.first][i])
                 std::cout << "Error loading marine walking sprite " << direction.second << " " << i << std::endl;
         }
     }
@@ -36,18 +35,19 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::COLOSSUS]->walkingSpritesCount = 15;
     spritesheets[CreepType::COLOSSUS]->numberOfBars = 20;
     spritesheets[CreepType::COLOSSUS]->innerSpriteHeight = 75;
-    
+
     spritesheets[CreepType::COLOSSUS]->bars.first = emptyBar;
     spritesheets[CreepType::COLOSSUS]->bars.second = fullBar;
 
-    for(int i = 0; i < spritesheets[CreepType::COLOSSUS]->walkingSpritesCount; i++)
+    for (int i = 0; i < spritesheets[CreepType::COLOSSUS]->walkingSpritesCount; i++)
     {
-        for(auto direction : directions)
+        for (auto direction : directions)
         {
-            std::string filename = "../assets/creeps/colossus/" + direction.second + "/colossus-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
+            std::string filename =
+                "../assets/creeps/colossus/" + direction.second + "/colossus-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
             spritesheets[CreepType::COLOSSUS]->walkingSprites[direction.first].push_back(al_load_bitmap(filename.c_str()));
 
-            if(!spritesheets[CreepType::COLOSSUS]->walkingSprites[direction.first][i])
+            if (!spritesheets[CreepType::COLOSSUS]->walkingSprites[direction.first][i])
                 std::cout << "Error loading colossus walking sprite " << direction.second << " " << i << std::endl;
         }
     }
@@ -62,14 +62,15 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::HYDRALISK]->bars.first = emptyBar;
     spritesheets[CreepType::HYDRALISK]->bars.second = fullBar;
 
-    for(int i = 0; i < spritesheets[CreepType::HYDRALISK]->walkingSpritesCount; i++)
+    for (int i = 0; i < spritesheets[CreepType::HYDRALISK]->walkingSpritesCount; i++)
     {
-        for(auto direction : directions)
+        for (auto direction : directions)
         {
-            std::string filename = "../assets/creeps/hydralisk/" + direction.second + "/hydralisk-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
+            std::string filename =
+                "../assets/creeps/hydralisk/" + direction.second + "/hydralisk-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
             spritesheets[CreepType::HYDRALISK]->walkingSprites[direction.first].push_back(al_load_bitmap(filename.c_str()));
 
-            if(!spritesheets[CreepType::HYDRALISK]->walkingSprites[direction.first][i])
+            if (!spritesheets[CreepType::HYDRALISK]->walkingSprites[direction.first][i])
                 std::cout << "Error loading hydra walking sprite " << direction.second << " " << i << std::endl;
         }
     }
@@ -81,18 +82,18 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::THOR]->numberOfBars = 15;
     spritesheets[CreepType::THOR]->innerSpriteHeight = 55;
 
-
     spritesheets[CreepType::THOR]->bars.first = emptyBar;
     spritesheets[CreepType::THOR]->bars.second = fullBar;
 
-    for(int i = 0; i < spritesheets[CreepType::THOR]->walkingSpritesCount; i++)
+    for (int i = 0; i < spritesheets[CreepType::THOR]->walkingSpritesCount; i++)
     {
-        for(auto direction : directions)
+        for (auto direction : directions)
         {
-            std::string filename = "../assets/creeps/thor/" + direction.second + "/thor-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
+            std::string filename =
+                "../assets/creeps/thor/" + direction.second + "/thor-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
             spritesheets[CreepType::THOR]->walkingSprites[direction.first].push_back(al_load_bitmap(filename.c_str()));
 
-            if(!spritesheets[CreepType::THOR]->walkingSprites[direction.first][i])
+            if (!spritesheets[CreepType::THOR]->walkingSprites[direction.first][i])
                 std::cout << "Error loading thor walking sprite " << direction.second << " " << i << std::endl;
         }
     }
@@ -107,21 +108,17 @@ void CreepLoader::loadSprites()
     spritesheets[CreepType::VOID_RAY]->bars.first = emptyBar;
     spritesheets[CreepType::VOID_RAY]->bars.second = fullBar;
 
-    for(int i = 0; i < spritesheets[CreepType::VOID_RAY]->walkingSpritesCount; i++)
+    for (int i = 0; i < spritesheets[CreepType::VOID_RAY]->walkingSpritesCount; i++)
     {
-        for(auto direction : directions)
+        for (auto direction : directions)
         {
             // TODO: tirar espaço
-            std::string filename = "../assets/creeps/void-ray/" + direction.second + "/void ray-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
+            std::string filename =
+                "../assets/creeps/void-ray/" + direction.second + "/void ray-" + direction.second + "-" + std::to_string(i + 1) + ".tga";
             spritesheets[CreepType::VOID_RAY]->walkingSprites[direction.first].push_back(al_load_bitmap(filename.c_str()));
 
-            if(!spritesheets[CreepType::VOID_RAY]->walkingSprites[direction.first][i])
+            if (!spritesheets[CreepType::VOID_RAY]->walkingSprites[direction.first][i])
                 std::cout << "Error loading void ray walking sprite " << direction.second << " " << i << std::endl;
         }
     }
-
-
-
-
-
 }

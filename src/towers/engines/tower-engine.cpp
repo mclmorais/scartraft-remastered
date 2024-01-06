@@ -30,22 +30,22 @@ TowerEngine::TowerEngine(std::list<Creep*>* creeps)
 
 bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
 {
-    if(currentSelection == TowerType::None)
+    if (currentSelection == TowerType::None)
         return false;
 
     int location = selectLocation(posX, posY);
 
-    if(location == -1)
+    if (location == -1)
         return false;
 
     TowerSlot* slot = towerSlots.at(location);
 
-    if(slot->isOccupied)
+    if (slot->isOccupied)
         return false;
 
-    if(!hasResourcesForPlacement(playerEconomy))
+    if (!hasResourcesForPlacement(playerEconomy))
         return false;
-    
+
     slot->isOccupied = true;
     slot->tower = new Tower(slot->posX, slot->posY, &towerSettings[currentSelection]);
     slot->tower->type = currentSelection;
@@ -61,54 +61,52 @@ bool TowerEngine::placeTower(int posX, int posY, PlayerEconomy* playerEconomy)
 
 void TowerEngine::attack()
 {
-    for(auto towerSlot: towerSlots)
+    for (auto towerSlot : towerSlots)
     {
-        if(!towerSlot->isOccupied)
+        if (!towerSlot->isOccupied)
             continue;
 
         Tower* tower = towerSlot->tower;
 
-        if(tower->status != READY)
+        if (tower->status != READY)
             continue;
 
-        for(auto creep: *creeps)
+        for (auto creep : *creeps)
         {
-            if(creep->health <= 0)
+            if (creep->health <= 0)
                 continue;
 
             double distX = tower->posX - creep->posX;
             double distY = tower->posY - creep->posY;
             double distance = sqrt(pow(distX, 2) + pow(distY, 2));
 
-            if(tower->range >= distance)
+            if (tower->range >= distance)
             {
-                std::cout << "Tower " << tower->type << " is attacking creep " << creep->id << " for " << tower->damage << " damage" << std::endl;
+                std::cout << "Tower " << tower->type << " is attacking creep " << creep->id << " for " << tower->damage << " damage"
+                          << std::endl;
                 creep->health -= tower->damage;
                 tower->status = COOLING_DOWN;
                 break;
             }
-
         }
     }
 }
 
 void TowerEngine::coolDown()
 {
-    for(int i = 0; i < towerSlots.size(); i++)
+    for (int i = 0; i < towerSlots.size(); i++)
     {
         TowerSlot* slot = towerSlots.at(i);
-        if(!slot->isOccupied)
+        if (!slot->isOccupied)
             continue;
 
         Tower* tower = slot->tower;
-        if(tower->status == COOLING_DOWN)
+        if (tower->status == COOLING_DOWN)
         {
             tower->cooldownTimer++;
-            // std::cout << "Tower " << i << " is cooling down (" << tower->cooldownTimer << "/" << tower->attackDuration << ")" << std::endl; 
 
-            if(tower->cooldownTimer >= tower->attackDuration)
+            if (tower->cooldownTimer >= tower->attackDuration)
             {
-                // std::cout << "Tower " << i << " is ready" << std::endl;
                 tower->cooldownTimer = 0;
                 tower->status = READY;
             }
@@ -123,11 +121,11 @@ bool TowerEngine::hasResourcesForPlacement(PlayerEconomy* playerEconomy)
 
 int TowerEngine::selectLocation(int posX, int posY)
 {
-    for(int i = 0; i < numberOfTowerLocations; i++)
+    for (int i = 0; i < numberOfTowerLocations; i++)
     {
-        if(posX >= towerSlots.at(i)->posX - 25 && posX <= towerSlots.at(i)->posX + 25)
+        if (posX >= towerSlots.at(i)->posX - 25 && posX <= towerSlots.at(i)->posX + 25)
         {
-            if(posY >= towerSlots.at(i)->posY - 25 && posY <= towerSlots.at(i)->posY + 25)
+            if (posY >= towerSlots.at(i)->posY - 25 && posY <= towerSlots.at(i)->posY + 25)
             {
                 return i;
             }
@@ -147,9 +145,9 @@ TowerSlot::TowerSlot(int posX, int posY)
 TowerEngine::~TowerEngine()
 {
     std::cout << std::endl << "    Deleting towers: ";
-    for(int i = 0; i < towerSlots.size(); i++)
+    for (int i = 0; i < towerSlots.size(); i++)
     {
-        if(towerSlots.at(i)->isOccupied)
+        if (towerSlots.at(i)->isOccupied)
         {
             std::cout << "!";
             delete towerSlots.at(i)->tower;

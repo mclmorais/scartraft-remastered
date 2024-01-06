@@ -4,7 +4,7 @@
 
 class Player
 {
-    public:
-        bool isAlive = true;
-        int health = PLAYER_HEALTH;
+  public:
+    bool isAlive = true;
+    int health = PLAYER_HEALTH;
 };
