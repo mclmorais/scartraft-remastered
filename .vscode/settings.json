@@ -1,4 +1,6 @@
 {
+    "editor.formatOnSave": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
     "files.associations": {
         "array": "cpp",
         "atomic": "cpp",

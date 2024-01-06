@@ -1,6 +1,6 @@
 #include "tower.h"
 
-Tower::Tower (int posX, int posY, TowerSettings* towerSettings)
+Tower::Tower(int posX, int posY, TowerSettings* towerSettings)
 {
     isActive = true;
     isAttacking = false;
@@ -13,4 +13,3 @@ Tower::Tower (int posX, int posY, TowerSettings* towerSettings)
     cooldownTimer = 0;
     // TODO: fazer plotar animação de ataque baseado em attack duration, mapeando frame 1-N em timer 0-duration
 }
-

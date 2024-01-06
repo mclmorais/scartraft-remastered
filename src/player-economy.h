@@ -3,9 +3,9 @@
 
 class PlayerEconomy
 {
-    public:
-        int minerals;
-        int gas;
+  public:
+    int minerals;
+    int gas;
 };
 
 #endif // PLAYER_ECONOMY_H

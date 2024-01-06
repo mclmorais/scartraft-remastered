@@ -8,7 +8,7 @@ void TowerLoader::loadSprites()
     spritesheets[TowerType::Bunker]->attackingSpritesCount = bunkerAttackingSpritesCount;
     spritesheets[TowerType::Bunker]->attackFramesCount = 10;
     spritesheets[TowerType::Bunker]->baseSprite = al_load_bitmap("../assets/towers/bunker/base.tga");
-    if(!spritesheets[TowerType::Bunker]->baseSprite)
+    if (!spritesheets[TowerType::Bunker]->baseSprite)
         std::cout << "Error loading bunker base sprite" << std::endl;
 
     for (int i = 0; i < bunkerAttackingSpritesCount; i++)
@@ -26,7 +26,7 @@ void TowerLoader::loadSprites()
     spritesheets[TowerType::Turret]->attackingSpritesCount = turretAttackingSpritesCount;
     spritesheets[TowerType::Turret]->attackFramesCount = 10;
     spritesheets[TowerType::Turret]->baseSprite = al_load_bitmap("../assets/towers/turret/base.tga");
-    if(!spritesheets[TowerType::Turret]->baseSprite)
+    if (!spritesheets[TowerType::Turret]->baseSprite)
         std::cout << "Error loading turret base sprite" << std::endl;
 
     for (int i = 0; i < turretAttackingSpritesCount; i++)
@@ -44,7 +44,7 @@ void TowerLoader::loadSprites()
     spritesheets[TowerType::SiegeTank]->attackingSpritesCount = siegeAttackingSpritesCount;
     spritesheets[TowerType::SiegeTank]->attackFramesCount = 30;
     spritesheets[TowerType::SiegeTank]->baseSprite = al_load_bitmap("../assets/towers/siege/base.tga");
-    if(!spritesheets[TowerType::SiegeTank]->baseSprite)
+    if (!spritesheets[TowerType::SiegeTank]->baseSprite)
         std::cout << "Error loading siege base sprite" << std::endl;
 
     for (int i = 0; i < siegeAttackingSpritesCount; i++)
@@ -55,6 +55,4 @@ void TowerLoader::loadSprites()
         if (!spritesheets[TowerType::SiegeTank]->attackingSprites[i])
             std::cout << "Error loading siege attacking sprite " << i << std::endl;
     }
-    
-
 }

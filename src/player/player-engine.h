@@ -5,6 +5,6 @@
 
 class PlayerEngine
 {
-    public:
-        void manageGameOver(Player* player);
+  public:
+    void manageGameOver(Player* player);
 };

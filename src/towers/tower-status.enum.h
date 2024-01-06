@@ -1,3 +1,8 @@
 #pragma once
 
-enum TowerStatus {BUILDING = 0, READY, COOLING_DOWN};
+enum TowerStatus
+{
+    BUILDING = 0,
+    READY,
+    COOLING_DOWN
+};
