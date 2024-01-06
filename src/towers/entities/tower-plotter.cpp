@@ -6,13 +6,14 @@ TowerPlotter::TowerPlotter(TowerLoader* towerLoader, std::vector<TowerSlot*>* to
     this->towerLoader = towerLoader;
 }
 
-void TowerPlotter::plot()
+void TowerPlotter::plot(bool debug)
 {
     for(int i = 0; i < this->towerSlots->size(); i++)
     {
         if(!this->towerSlots->at(i)->isOccupied)
         {
-            al_draw_circle(this->towerSlots->at(i)->posX, this->towerSlots->at(i)->posY, 5, al_map_rgb(255,0,0), 2);
+            if(debug)
+                al_draw_circle(this->towerSlots->at(i)->posX, this->towerSlots->at(i)->posY, 5, al_map_rgb(255,0,0), 2);
             continue;
         }
 
@@ -35,8 +36,11 @@ void TowerPlotter::plot()
         if(sprite != nullptr)
             al_draw_bitmap(sprite, tower->posX + spritesheet->spriteOffsetX, tower->posY + spritesheet->spriteOffsetY, 0);
 
-        al_draw_circle(tower->posX, tower->posY, tower->range, al_map_rgb(127, 127, 127), 2);
-        al_draw_circle(tower->posX, tower->posY, 5, al_map_rgb(0,200,0), 2);
+        if(debug)
+        {
+            al_draw_circle(tower->posX, tower->posY, tower->range, al_map_rgb(127, 127, 127), 2);
+            al_draw_circle(tower->posX, tower->posY, 5, al_map_rgb(0,200,0), 2);
+        }
 
     }
 }

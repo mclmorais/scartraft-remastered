@@ -2,32 +2,37 @@
 
 void CreepEngine::planCheckpoints()
 {
-    this->creepCheckpoints.push_back({597+25, -61+25});
-    this->creepCheckpoints.push_back({395+25, 40+25});
-    this->creepCheckpoints.push_back({537+25, 112+25});
-    this->creepCheckpoints.push_back({333+25, 214+25});
-    this->creepCheckpoints.push_back({137+25, 116+25});
-    this->creepCheckpoints.push_back({-5+25, 187+25});
-    this->creepCheckpoints.push_back({333+25, 356+25});
-    this->creepCheckpoints.push_back({473+25, 286+25});
-    this->creepCheckpoints.push_back({593+25, 346+25});
-    this->creepCheckpoints.push_back({193+25, 546+25});
+    this->creepCheckpoints.push_back({617, -31});
+    this->creepCheckpoints.push_back({415, 70});
+    this->creepCheckpoints.push_back({555, 140});
+    this->creepCheckpoints.push_back({353, 243});
+    this->creepCheckpoints.push_back({160, 145});
+    this->creepCheckpoints.push_back({22, 218});
+    this->creepCheckpoints.push_back({353, 385});
+    this->creepCheckpoints.push_back({495, 315});
+    this->creepCheckpoints.push_back({615, 375});
+    this->creepCheckpoints.push_back({198, 581});
 }
 
 void CreepEngine::planCreeps()
 {
-    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 0.9, 1};
-    creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 1.2, 1.5};
-    creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 0.8, 2};
-    creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 0.6, 2};
-    creepSettings[COLOSSUS] = {COLOSSUS, LAND, 400, 300, 800, 0.4, 5};
+    creepSettings[MARINE] = {MARINE, LAND, 50, 0, 100, 12, 1, 40};
+    creepSettings[HYDRALISK] = {HYDRALISK, LAND, 100, 20, 200, 12, 1.5, 68};
+    creepSettings[THOR] = {THOR, LAND, 200, 100, 400, 8, 2, 60};
+    creepSettings[VOID_RAY] = {VOID_RAY, AIR, 300, 200, 600, 6, 2, 108};
+    creepSettings[COLOSSUS] = {COLOSSUS, LAND, 400, 300, 800, 10, 5, 60};
 }
 
 void CreepEngine::planWaves()
 {
     creepWaves.push_back(new CreepWave());
-    creepWaves[0]->addCreep(MARINE, 10);
+    creepWaves[0]->addCreep(MARINE, 2);
+    creepWaves[0]->addCreep(HYDRALISK, 2);
+    creepWaves[0]->addCreep(THOR, 2);
+    creepWaves[0]->addCreep(VOID_RAY, 2);
+    creepWaves[0]->addCreep(COLOSSUS, 2);
     creepWaves[0]->spawnDelay = 1;
+
 }
 
 void CreepEngine::startWaveTimer()
@@ -38,6 +43,7 @@ void CreepEngine::startWaveTimer()
 
 void CreepEngine::spawnCreep(CreepSettings* creepSettings, int creepCount)
 {
+    std::cout << "Spawning creep " << creepCounter << " of type " << creepSettings->type << std::endl;
     creeps.push_back(new Creep(++creepCounter, creepCheckpoints[0].first + 60 * creepCount, creepCheckpoints[0].second - 30 * creepCount, creepSettings));
 }
 
@@ -80,11 +86,13 @@ void CreepEngine::moveCreeps()
 
         // checks if creep is within a minimum range of the checkpoint
         if(
-            (creep->posX >= targetCheckpoint.first - 5 && creep->posX <= targetCheckpoint.first + 5) &&
-            (creep->posY >= targetCheckpoint.second - 5 && creep->posY <= targetCheckpoint.second + 5) &&
+            (creep->posX >= targetCheckpoint.first - 1 && creep->posX <= targetCheckpoint.first + 1) &&
+            (creep->posY >= targetCheckpoint.second - 1 && creep->posY <= targetCheckpoint.second + 1) &&
             creep->cornerTarget < creepCheckpoints.size()
         )
         {
+            creep->posX = targetCheckpoint.first;
+            creep->posY = targetCheckpoint.second;
             creep->cornerTarget++;
         }
 
@@ -147,25 +155,25 @@ void CreepEngine::moveCreeps()
         switch(creep->direction)
         {
             case DOWN_LEFT:
-                creep->posX -= creep->speed;
-                creep->posY += creep->speed / 2.0;
+                creep->posX -= 0.1 * creep->speed;
+                creep->posY += 0.1 * creep->speed / 2.0;
                 break;
             case DOWN_RIGHT:
-                creep->posX += creep->speed;
-                creep->posY += creep->speed / 2.0;
+                creep->posX += 0.1 * creep->speed;
+                creep->posY += 0.1 * creep->speed / 2.0;
                 break;
             case UP_LEFT:
-                creep->posX -= creep->speed;
-                creep->posY -= creep->speed / 2.0;
+                creep->posX -= 0.1 * creep->speed;
+                creep->posY -= 0.1 * creep->speed / 2.0;
                 break;
             case UP_RIGHT:
-                creep->posX += creep->speed;
-                creep->posY -= creep->speed / 2.0;
+                creep->posX += 0.1 * creep->speed;
+                creep->posY -= 0.1 * creep->speed / 2.0;
                 break;
         }
 
         creep->walkingTimer++;
-        if(creep->walkingTimer > 60)
+        if(creep->walkingTimer > creep->totalWalkingTimer)
             creep->walkingTimer = 0;
     }
 }

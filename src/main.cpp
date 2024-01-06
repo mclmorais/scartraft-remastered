@@ -101,9 +101,7 @@ void mainMenu(Plotter* plotter)
 
 				if (mousestate.x >= 590 && mousestate.x <= 730 && mousestate.y >= 470 && mousestate.y <= 510)
 				{
-					// _CrtDumpMemoryLeaks();
-					exit(1);
-
+					exit(0);
 				}
 
 			}
@@ -181,9 +179,12 @@ void game(Plotter* plotter)
 	std::cout << " ok" << std::endl;
 
 	ALLEGRO_MOUSE_STATE mouseState;
+	ALLEGRO_KEYBOARD_STATE keyboardState;
 	double fixedDownTime = 1.0f / REFRESH_RATE;
 	double oldTime = al_current_time();
 	double gameTime = al_current_time();
+
+	bool debug = false;
 
 	while (true)
 	{
@@ -200,6 +201,27 @@ void game(Plotter* plotter)
 		double start_time = al_current_time();
 		while (oldTime - gameTime >= 0)
 		{
+			al_get_keyboard_state(&keyboardState);
+
+			// toggle debug if key D is pressed
+			if (al_key_down(&keyboardState, ALLEGRO_KEY_D))
+			{
+				if (!debug)
+				{
+					debug = true;
+					std::cout << "Debug mode on" << std::endl;
+				}
+			}
+			else
+			{
+				if(debug) 	
+				{
+					debug = false;
+					std::cout << "Debug mode off" << std::endl;
+				}
+			}
+
+
 			gameTime += fixedDownTime;
 			al_get_mouse_state(&mouseState);
 			
@@ -214,6 +236,7 @@ void game(Plotter* plotter)
 
 			playerEngine->manageGameOver(player);
 
+	
 
 
 			if(!player->isAlive)
@@ -269,8 +292,8 @@ void game(Plotter* plotter)
 
 			plotter->plotBackground();
 			plotter->plotGameMenu(towerEngine->currentSelection);
-			towerPlotter->plot();
-			creepPlotter->plot();
+			towerPlotter->plot(debug);
+			creepPlotter->plot(debug);
 			al_wait_for_vsync();
 			al_flip_display();
 		}
