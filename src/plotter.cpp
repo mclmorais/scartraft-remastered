@@ -32,12 +32,15 @@ void Plotter::plotMainMenu(int variation)
 void Plotter::plotBackground()
 {
     al_draw_bitmap(bitmapLoader->background, 0, 0, 0);
-    al_draw_bitmap(bitmapLoader->beacons, 0, 0, 0);
 }
 
 void Plotter::plotGameMenu(TowerType::TowerType selectedTower)
 {
     al_draw_bitmap(bitmapLoader->gameMenu, 630, 0, 0);
+
+    if (selectedTower != TowerType::None)
+        al_draw_bitmap(bitmapLoader->beacons, 0, 0, 0);
+
     al_draw_bitmap(bitmapLoader->bunkerButton[selectedTower == TowerType::Bunker ? 1 : 0], 715, 235, 0);
     al_draw_bitmap(bitmapLoader->towerButton[selectedTower == TowerType::Turret ? 1 : 0], 715, 235 + 65, 0);
     al_draw_bitmap(bitmapLoader->siegeButton[selectedTower == TowerType::SiegeTank ? 1 : 0], 715, 235 + 130, 0);
