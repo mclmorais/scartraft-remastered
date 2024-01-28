@@ -5,6 +5,16 @@ void CreepLoader::loadSprites()
     auto emptyBar = al_load_bitmap("../assets/bars/default-bar-empty.png");
     auto fullBar = al_load_bitmap("../assets/bars/default-bar-full.png");
 
+    std::vector<ALLEGRO_BITMAP*> creepDeathBloodSprites;
+    for (int i = 0; i < 10; i++)
+    {
+        std::string filename = "../assets/creeps/death/blood/creep-death-blood-" + std::to_string(i + 1) + ".tga";
+        creepDeathBloodSprites.push_back(al_load_bitmap(filename.c_str()));
+
+        if (!creepDeathBloodSprites[i])
+            std::cout << "Error loading blood death sprite " << i << std::endl;
+    }
+
     spritesheets[CreepType::MARINE] = new CreepSpritesheet();
     spritesheets[CreepType::MARINE]->spriteOffsetX = 53;
     spritesheets[CreepType::MARINE]->spriteOffsetY = 59;
@@ -14,6 +24,7 @@ void CreepLoader::loadSprites()
 
     spritesheets[CreepType::MARINE]->bars.first = emptyBar;
     spritesheets[CreepType::MARINE]->bars.second = fullBar;
+    spritesheets[CreepType::MARINE]->deathSprites = creepDeathBloodSprites;
 
     for (int i = 0; i < spritesheets[CreepType::MARINE]->walkingSpritesCount; i++)
     {
@@ -38,6 +49,7 @@ void CreepLoader::loadSprites()
 
     spritesheets[CreepType::COLOSSUS]->bars.first = emptyBar;
     spritesheets[CreepType::COLOSSUS]->bars.second = fullBar;
+    spritesheets[CreepType::COLOSSUS]->deathSprites = creepDeathBloodSprites;
 
     for (int i = 0; i < spritesheets[CreepType::COLOSSUS]->walkingSpritesCount; i++)
     {
@@ -61,6 +73,7 @@ void CreepLoader::loadSprites()
 
     spritesheets[CreepType::HYDRALISK]->bars.first = emptyBar;
     spritesheets[CreepType::HYDRALISK]->bars.second = fullBar;
+    spritesheets[CreepType::HYDRALISK]->deathSprites = creepDeathBloodSprites;
 
     for (int i = 0; i < spritesheets[CreepType::HYDRALISK]->walkingSpritesCount; i++)
     {
@@ -84,6 +97,7 @@ void CreepLoader::loadSprites()
 
     spritesheets[CreepType::THOR]->bars.first = emptyBar;
     spritesheets[CreepType::THOR]->bars.second = fullBar;
+    spritesheets[CreepType::THOR]->deathSprites = creepDeathBloodSprites;
 
     for (int i = 0; i < spritesheets[CreepType::THOR]->walkingSpritesCount; i++)
     {
@@ -107,6 +121,7 @@ void CreepLoader::loadSprites()
 
     spritesheets[CreepType::VOID_RAY]->bars.first = emptyBar;
     spritesheets[CreepType::VOID_RAY]->bars.second = fullBar;
+    spritesheets[CreepType::VOID_RAY]->deathSprites = creepDeathBloodSprites;
 
     for (int i = 0; i < spritesheets[CreepType::VOID_RAY]->walkingSpritesCount; i++)
     {

@@ -69,7 +69,7 @@ void CreepEngine::moveCreeps()
     for (auto creep : creeps)
     {
         if (creep->status != ALIVE)
-            return;
+            continue;
 
         auto targetCheckpoint = creepCheckpoints[creep->cornerTarget];
 
@@ -123,19 +123,28 @@ void CreepEngine::manageDeadCreeps(PlayerEconomy* playerEconomy)
 
     auto it = creeps.begin();
 
+    int i = 0;
+
     while (it != creeps.end())
     {
         auto creep = *it;
 
-        if (creep->health <= 0)
+        if (creep->status == ALIVE && creep->health <= 0)
         {
-            std::cout << "Creep just died" << std::endl;
-            creep->status = DEAD;
+            std::cout << "Creep defeated" << std::endl;
+            creep->status = DYING;
             playerEconomy->minerals += creep->mineralReward;
             playerEconomy->gas += creep->gasReward;
         }
-
-        if (creep->status == DEAD)
+        else if (creep->status == DYING)
+        {
+            if (++creep->deathTimer >= creep->deathDuration)
+            {
+                std::cout << "Creep is dead" << std::endl;
+                creep->status = DEAD;
+            }
+        }
+        else if (creep->status == DEAD)
         {
             std::cout << "Removing creep" << std::endl;
             it = creeps.erase(it);

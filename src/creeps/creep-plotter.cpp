@@ -27,6 +27,9 @@ void CreepPlotter::plot(bool debug)
     {
         Creep* creep = *it;
 
+        if (creep->status != ALIVE)
+            continue;
+
         CreepSpritesheet* spritesheet = this->creepLoader->spritesheets[creep->type];
 
         auto frame =
@@ -63,7 +66,42 @@ void CreepPlotter::plot(bool debug)
     }
 
     for (std::list<Creep*>::iterator it = this->creeps->begin(); it != this->creeps->end(); ++it)
+    {
+        if ((*it)->status != ALIVE)
+            continue;
+
         drawHealthBar(*it, this->creepLoader->spritesheets[(*it)->type]);
+    }
+
+    for (std::list<Creep*>::iterator it = this->creeps->begin(); it != this->creeps->end(); ++it)
+    {
+        auto creep = *it;
+        if (creep->status != DYING)
+            continue;
+
+        auto spritesheet = this->creepLoader->spritesheets[creep->type];
+
+        auto frame = interpolateFrameToSprite(creep->deathTimer, creep->deathDuration, spritesheet->deathSprites.size());
+
+        auto sprite = spritesheet->deathSprites[frame];
+
+        if (sprite == nullptr)
+            continue;
+
+        al_draw_bitmap(sprite, creep->posX - al_get_bitmap_width(sprite) / 2, creep->posY - al_get_bitmap_height(sprite) / 2, 0);
+
+        if (debug)
+        {
+            al_draw_rectangle(creep->posX - al_get_bitmap_width(sprite) / 2.0, creep->posY - al_get_bitmap_height(sprite) / 2.0,
+                              creep->posX + al_get_bitmap_width(sprite) / 2.0, creep->posY + al_get_bitmap_height(sprite) / 2.0,
+                              al_map_rgb(255, 0, 0), 1);
+            al_draw_line(creep->posX, creep->posY - al_get_bitmap_height(sprite) / 2.0, creep->posX,
+                         creep->posY + al_get_bitmap_height(sprite) / 2.0, al_map_rgb(255, 255, 0), 1);
+
+            al_draw_line(creep->posX - al_get_bitmap_width(sprite) / 2.0, creep->posY, creep->posX + al_get_bitmap_width(sprite) / 2.0,
+                         creep->posY, al_map_rgb(255, 255, 0), 1);
+        }
+    }
 }
 
 int CreepPlotter::interpolateFrameToSprite(int currentFrame, int frameCount, int spriteCount)

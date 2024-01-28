@@ -229,7 +229,6 @@ void game(Plotter* plotter)
             creepEngine->moveCreeps();
             creepEngine->manageDeadCreeps(playerEconomy);
             creepEngine->manageCreepEOL(player);
-
             playerEngine->manageGameOver(player);
 
             if (!player->isAlive)

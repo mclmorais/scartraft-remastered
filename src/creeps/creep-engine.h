@@ -29,7 +29,7 @@ class CreepEngine
     void planCheckpoints();
     void moveCreeps();
     void startWaveTimer();
-    void manageWaves(); // TODO: continuar aqui
+    void manageWaves();
     void manageDeadCreeps(PlayerEconomy* playerEconomy);
     void manageCreepEOL(Player* player);
     std::list<Creep*> creeps;
