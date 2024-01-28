@@ -44,6 +44,11 @@ class Creep
     double walkingTimer;
     double totalWalkingTimer;
     int cornerTarget;
+
+    double deathPosX;
+    double deathPosY;
+    double deathTimer;
+    double deathDuration;
 };
 
 class CreepWave

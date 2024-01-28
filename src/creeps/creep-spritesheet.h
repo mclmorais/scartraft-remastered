@@ -19,5 +19,6 @@ class CreepSpritesheet
     std::vector<ALLEGRO_BITMAP*> walkingSpritesFrontRight;
     std::vector<ALLEGRO_BITMAP*> walkingSpritesBackLeft;
     std::vector<ALLEGRO_BITMAP*> walkingSpritesBackRight;
+    std::vector<ALLEGRO_BITMAP*> deathSprites;
     std::pair<ALLEGRO_BITMAP*, ALLEGRO_BITMAP*> bars;
 };
