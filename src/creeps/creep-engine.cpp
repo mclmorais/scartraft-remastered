@@ -133,8 +133,6 @@ void CreepEngine::manageDeadCreeps(PlayerEconomy* playerEconomy)
         {
             std::cout << "Creep defeated" << std::endl;
             creep->status = DYING;
-            creep->deathPosX = creep->posX;
-            creep->deathPosY = creep->posY;
             playerEconomy->minerals += creep->mineralReward;
             playerEconomy->gas += creep->gasReward;
         }

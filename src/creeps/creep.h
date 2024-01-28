@@ -45,8 +45,6 @@ class Creep
     double totalWalkingTimer;
     int cornerTarget;
 
-    double deathPosX;
-    double deathPosY;
     double deathTimer;
     double deathDuration;
 };
