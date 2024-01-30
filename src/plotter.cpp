@@ -17,8 +17,16 @@ Plotter::Plotter(BitmapLoader* bitmapLoader)
 
 void Plotter::createDisplay()
 {
+    auto icon256 = al_load_bitmap("../assets/icon/icon-256.png");
+    auto icon128 = al_load_bitmap("../assets/icon/icon-128.png");
+    auto icon64 = al_load_bitmap("../assets/icon/icon-64.png");
+    auto icon48 = al_load_bitmap("../assets/icon/icon-48.png");
+    auto icon32 = al_load_bitmap("../assets/icon/icon-32.png");
+
+    ALLEGRO_BITMAP* icons[5] = {icon256, icon128, icon64, icon48, icon32};
     display = al_create_display(800, 600);
     al_set_window_title(display, "Scartraft 2");
+    al_set_display_icons(display, 5, icons);
 }
 
 void Plotter::plotMainMenu(int variation)
