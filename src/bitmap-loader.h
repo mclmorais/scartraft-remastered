@@ -2,6 +2,7 @@
 #define __BITMAP_LOADER_H__
 
 #include "allegro5/allegro.h"
+#include "allegro5/allegro_font.h"
 #include <string>
 
 class BitmapLoader
@@ -18,6 +19,9 @@ class BitmapLoader
     ALLEGRO_BITMAP* towerButton[2];
     ALLEGRO_BITMAP* siegeButton[2];
     ALLEGRO_BITMAP* beacons;
+    ALLEGRO_BITMAP* mineralIcon;
+    ALLEGRO_BITMAP* gasIcon;
+    ALLEGRO_FONT* resourcesFont;
 
   private:
     void loadSprites(int numberOfSprites, std::string spriteName, ALLEGRO_BITMAP* sprites[]);

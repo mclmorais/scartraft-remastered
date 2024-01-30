@@ -282,7 +282,7 @@ void game(Plotter* plotter)
                 break;
 
             plotter->plotBackground();
-            plotter->plotGameMenu(towerEngine->currentSelection);
+            plotter->plotGameMenu(towerEngine->currentSelection, playerEconomy);
             towerPlotter->plot(debug);
             creepPlotter->plot(debug);
             al_wait_for_vsync();

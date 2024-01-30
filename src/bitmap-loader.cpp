@@ -32,7 +32,7 @@ void BitmapLoader::loadBackground()
 
 void BitmapLoader::loadGameMenu()
 {
-    gameMenu = al_load_bitmap("../assets/interface/game-menu/game-menu-1.tga");
+    gameMenu = al_load_bitmap("../assets/interface/game-menu/game-menu-2.png");
     if (gameMenu == NULL)
     {
         std::cout << "Failed to load game menu" << std::endl;
@@ -45,4 +45,9 @@ void BitmapLoader::loadGameMenu()
     towerButton[1] = al_load_bitmap("../assets/interface/game-menu/button-tower-highlight.tga");
     siegeButton[0] = al_load_bitmap("../assets/interface/game-menu/button-siege.tga");
     siegeButton[1] = al_load_bitmap("../assets/interface/game-menu/button-siege-highlight.tga");
+
+    mineralIcon = al_load_bitmap("../assets/interface/icons/minerals-icon-16.png");
+    gasIcon = al_load_bitmap("../assets/interface/icons/gas-icon-16.png");
+
+    resourcesFont = al_load_font("../assets/fonts/prototype.ttf", 10, 0);
 }
