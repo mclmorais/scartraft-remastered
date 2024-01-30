@@ -34,7 +34,7 @@ void Plotter::plotBackground()
     al_draw_bitmap(bitmapLoader->background, 0, 0, 0);
 }
 
-void Plotter::plotGameMenu(TowerType::TowerType selectedTower)
+void Plotter::plotGameMenu(TowerType::TowerType selectedTower, PlayerEconomy* playerEconomy)
 {
     al_draw_bitmap(bitmapLoader->gameMenu, 630, 0, 0);
 
@@ -44,4 +44,10 @@ void Plotter::plotGameMenu(TowerType::TowerType selectedTower)
     al_draw_bitmap(bitmapLoader->bunkerButton[selectedTower == TowerType::Bunker ? 1 : 0], 715, 235, 0);
     al_draw_bitmap(bitmapLoader->towerButton[selectedTower == TowerType::Turret ? 1 : 0], 715, 235 + 65, 0);
     al_draw_bitmap(bitmapLoader->siegeButton[selectedTower == TowerType::SiegeTank ? 1 : 0], 715, 235 + 130, 0);
+
+    al_draw_bitmap(bitmapLoader->mineralIcon, 730, 175, 0);
+    al_draw_bitmap(bitmapLoader->gasIcon, 730, 175 + 16, 0);
+
+    al_draw_text(bitmapLoader->resourcesFont, al_map_rgb(255, 255, 255), 750, 175, 0, std::to_string(playerEconomy->minerals).c_str());
+    al_draw_text(bitmapLoader->resourcesFont, al_map_rgb(255, 255, 255), 750, 175 + 16 + 2, 0, std::to_string(playerEconomy->gas).c_str());
 }
